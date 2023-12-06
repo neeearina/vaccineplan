@@ -1,0 +1,49 @@
+{% load static %}
+{% load i18n %}
+
+<div class="container">
+
+  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
+    <div class="col-md-3 mb-2 mb-md-0">
+      <a href="{% url 'homepage:home' %}" class="fs-3 fw-bold text-white text-decoration-none">
+        <img class="bi me-2" width="32" height="32" src="{% static "img/vaccine.png" %}">
+        VaccinePlan
+      </a>
+    </div>
+
+    {% with request.resolver_match.view_name as view_name %}
+
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li class="nav-item">
+          <a href="{% url 'homepage:home' %}" class="nav-link px-3 {% if view_name == 'homepage:home' %}text-secondary disabled{% else %}text-white{% endif %}">Главная страница</a>
+        </li>
+
+        {% if user.is_superuser %}
+
+        <li class="nav-item">
+          <a href="{% url 'admin:index' %}" class="nav-link px-3">Админка</a>
+        </li>
+
+        {% endif %}
+      
+      </ul>
+
+    {% endwith %}
+
+    <div class="col-md-3 text-end">
+
+      {% if not user.is_authenticated %}
+
+      <a class="btn btn-sm btn-outline-success" href="#{% comment %}{% url 'users:signup' %}{% endcomment %}">Зарегистрироваться</a>
+      <a class="btn btn-sm btn-outline-secondary" href="#{% comment %}{% url 'users:login' %}{% endcomment %}">Войти</a>
+
+      {% else %}
+
+      <a class="text-decoration-none text-light fw-bold" href="#{% comment %}{% url 'users:profile' %}{% endcomment %}">{{ user.username }}</a>
+      <a class="mx-2 btn btn-sm btn-outline-danger" href="#{% comment %}{% url 'users:logout' %}{% endcomment %}">Выйти</a>
+
+      {% endif %}
+      
+    </div>
+  </div>
+</div>
