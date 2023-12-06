@@ -21,7 +21,7 @@ source venv/bin/activate
 
 - Перейти в директорию проекта и запустить его
 ```bash
-cd lyceum
+cd vaccineplan
 ```
 ```bash
 python3 manage.py runserver
@@ -56,12 +56,12 @@ python3 manage.py runserver
  #### Миграции базы данных
  - Для установки миграций используйте:
  ```bash
- cd lyceum
+ cd vaccineplan
  python3 manage.py migrate
  ```
  - Если вы внесли изменения в структуру базы данных, то сделайте новую миграцию:
  ```bash
- cd lyceum
+ cd vaccineplan
  python3 manage.py makemigrations
  ```
 
