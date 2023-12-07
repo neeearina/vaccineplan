@@ -2,7 +2,7 @@
 line-length = 79
 exclude = """
     .git,
-    /migrations/,
-    /venv/,
-    /fixtures/
+    migrations/,
+    venv/,
+    fixtures/
 """
