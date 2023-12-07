@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     "sorl.thumbnail",
     "django_cleanup.apps.CleanupConfig",
     "widget_tweaks",
+    "core.apps.CoreConfig",
+    "vaccines.apps.VaccinesConfig",
 ]
 
 INTERNAL_IPS = [
