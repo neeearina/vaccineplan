@@ -47,3 +47,10 @@ class Vaccines(models.Model):
         " от которой она предназначена",
         verbose_name="категория",
     )
+
+    class Meta:
+        verbose_name = "вакцина"
+        verbose_name_plural = "вакцины"
+
+    def __str__(self):
+        return f"Вакцина {self.name}"
