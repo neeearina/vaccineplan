@@ -22,15 +22,24 @@ DEBUG = load_bool_env("DJANGO_DEBUG", False)
 
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")
 
+LINK_EXPIRATION = int(os.getenv("DJANGO_LINK_EXPIRATION", 12))
+
+EMAIL_ADDRESS = os.getenv("DJANGO_MAIL", "NO-MAIL")
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = BASE_DIR / "send_mail"
+
+
 INSTALLED_APPS = [
     "homepage.apps.HomepageConfig",
-    "core.apps.CoreConfig",
+    "users.apps.UsersConfig",
+
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
     "sorl.thumbnail",
     "django_cleanup.apps.CleanupConfig",
     "widget_tweaks",
@@ -100,6 +109,9 @@ AUTH_PASSWORD_VALIDATORS = [
         "NumericPasswordValidator",
     },
 ]
+
+# Модель пользователя
+AUTH_USER_MODEL = "users.CustomUser"
 
 LOGIN_URL = "/auth/login"
 LOGIN_REDIRECT_URL = "/"
