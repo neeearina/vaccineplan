@@ -23,8 +23,10 @@ DEBUG = load_bool_env("DJANGO_DEBUG", False)
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")
 
 INSTALLED_APPS = [
-    "homepage.apps.HomepageConfig",
+    "clinics.apps.ClinicsConfig",
     "core.apps.CoreConfig",
+    "homepage.apps.HomepageConfig",
+    "vaccines.apps.VaccinesConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -34,7 +36,6 @@ INSTALLED_APPS = [
     "sorl.thumbnail",
     "django_cleanup.apps.CleanupConfig",
     "widget_tweaks",
-    "vaccines.apps.VaccinesConfig",
 ]
 
 INTERNAL_IPS = [
