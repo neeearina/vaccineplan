@@ -42,7 +42,6 @@ class Vaccines(models.Model):
     category = models.ForeignKey(
         VaccineCategories,
         on_delete=models.CASCADE,
-        null=True,
         help_text="категория вакцины - название болезни,"
         " от которой она предназначена",
         verbose_name="категория",
