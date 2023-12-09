@@ -1,9 +1,8 @@
 import django.conf
 import django.contrib.auth.models
+import django.core.validators
 import django.db.models
 import phonenumber_field.modelfields
-
-import clinics.validators
 
 
 class Clinics(django.db.models.Model):
@@ -32,12 +31,23 @@ class Clinics(django.db.models.Model):
         max_length=128,
         help_text="Адрес, где находится клиника",
         verbose_name="адрес",
+        validators=[
+            django.core.validators.MinLengthValidator(
+                15,
+                message="Слишком короткий текст.",
+            ),
+        ],
     )
     lisense = django.db.models.CharField(
         max_length=256,
         help_text="Лицензия на медицинскую деятельность",
         verbose_name="лицензия",
-        validators=[clinics.validators.length],
+        validators=[
+            django.core.validators.MinLengthValidator(
+                10,
+                message="Слишком короткий текст.",
+            ),
+        ],
     )
     phone_number = phonenumber_field.modelfields.PhoneNumberField(
         region="RU",
