@@ -1,6 +1,9 @@
 import django.conf
 import django.contrib.auth.models
 import django.db.models
+import phonenumber_field.modelfields
+
+import clinics.validators
 
 
 class Clinics(django.db.models.Model):
@@ -12,33 +15,37 @@ class Clinics(django.db.models.Model):
     admin = django.db.models.ForeignKey(
         django.contrib.auth.models.User,
         on_delete=django.db.models.deletion.CASCADE,
-        help_text="администратор клиники, который будет работать в профиле",
+        help_text="Администратор клиники, который будет работать в профиле",
         verbose_name="администратор",
     )
     name = django.db.models.CharField(
         max_length=256,
-        help_text="название клиники",
+        help_text="Название клиники",
         verbose_name="клиника",
     )
     city = django.db.models.CharField(
         max_length=128,
-        help_text="город/населенный пункт, в котором находится клиника",
+        help_text="Город/населенный пункт, в котором находится клиника",
         verbose_name="место",
     )
     address = django.db.models.CharField(
         max_length=128,
-        help_text="адрес, где находится клиника",
+        help_text="Адрес, где находится клиника",
         verbose_name="адрес",
     )
     lisense = django.db.models.CharField(
         max_length=256,
-        help_text="лицензия на медицинскую деятельность",
+        help_text="Лицензия на медицинскую деятельность",
         verbose_name="лицензия",
+        validators=[clinics.validators.length],
     )
-    phone_number = django.db.models.CharField(
-        max_length=12,
-        help_text="номер телефона для связи с администратором клиники",
+    phone_number = phonenumber_field.modelfields.PhoneNumberField(
+        region="RU",
+        help_text="Номер телефона для связи с администратором клиники",
         verbose_name="номер телефона",
+        error_messages={
+            "invalid": "Пожалуйста, введите корректный номер телефона.",
+        },
     )
     status = django.db.models.CharField(
         "статус обработки",
@@ -48,7 +55,7 @@ class Clinics(django.db.models.Model):
         default=StatusChoices.GOT,
     )
     clinic_mail = django.db.models.EmailField(
-        help_text="электронная почта клиники",
+        help_text="Электронная почта клиники",
         verbose_name="почта",
     )
 

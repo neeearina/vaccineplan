@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "sorl.thumbnail",
     "django_cleanup.apps.CleanupConfig",
     "widget_tweaks",
+    "phone_field",
 ]
 
 INTERNAL_IPS = [
