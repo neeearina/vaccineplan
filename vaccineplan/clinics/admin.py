@@ -12,6 +12,7 @@ class ClinicsAdmin(admin.ModelAdmin):
     )
     readonly_fields = (
         clinics.models.Clinics.name.field.name,
+        clinics.models.Clinics.admin.field.name,
         clinics.models.Clinics.city.field.name,
         clinics.models.Clinics.address.field.name,
         clinics.models.Clinics.lisense.field.name,
@@ -21,7 +22,7 @@ class ClinicsAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         if change and form.cleaned_data["status"] != form.initial.get(
-                "status",
+            "status",
         ):
             clinics.models.StatusLog.objects.create(
                 user=request.user,

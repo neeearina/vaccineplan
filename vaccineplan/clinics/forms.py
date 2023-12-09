@@ -11,10 +11,6 @@ class ClinicsForm(django.forms.ModelForm):
             field.field.widget.attrs["class"] = "form-control my-1"
             field.field.widget.attrs["placeholder"] = field.field.label
 
-    # admin = django.forms.CharField(
-    #     label="имя администратора",
-    #     help_text="имя того, кто подаёт заявку",
-    # )
     name = django.forms.CharField(
         label="название клиники",
         help_text="название клиники, на которую подается заявка",
@@ -48,5 +44,6 @@ class ClinicsForm(django.forms.ModelForm):
     class Meta:
         model = clinics.models.Clinics
         exclude = [
+            clinics.models.Clinics.admin.field.name,
             clinics.models.Clinics.status.field.name,
         ]
