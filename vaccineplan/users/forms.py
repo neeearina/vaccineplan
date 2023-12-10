@@ -33,5 +33,5 @@ class ProfileForm(django.forms.Form):
             users.models.CustomUser.first_name.field.name,
             users.models.CustomUser.last_name.field.name,
             users.models.CustomUser.middle_name.field.name,
-            users.models.CustomUser
+            users.models.CustomUser,
         ]

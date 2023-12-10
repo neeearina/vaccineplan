@@ -2,8 +2,6 @@ import django.conf
 import django.contrib.auth.models
 import django.db.models
 
-import users.models
-
 
 class Clinics(django.db.models.Model):
     class StatusChoices(django.db.models.TextChoices):

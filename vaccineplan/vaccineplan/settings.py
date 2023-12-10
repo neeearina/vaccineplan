@@ -35,14 +35,12 @@ INSTALLED_APPS = [
     "clinics.apps.ClinicsConfig",
     "core.apps.CoreConfig",
     "vaccines.apps.VaccinesConfig",
-
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     "sorl.thumbnail",
     "django_cleanup.apps.CleanupConfig",
     "widget_tweaks",
