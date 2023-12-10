@@ -5,6 +5,8 @@ import django.core.validators
 import django.db.models
 import sorl
 
+import clinics.models
+
 
 class CustomUser(django.contrib.auth.models.AbstractUser):
     def get_avatar_path(self, filename):
@@ -41,6 +43,15 @@ class CustomUser(django.contrib.auth.models.AbstractUser):
         blank=True,
         null=True,
         max_length=128,
+    )
+
+    clinic = django.db.models.ForeignKey(
+        to=clinics.models.Clinics,
+        verbose_name="клиника",
+        help_text="клиника, к которой прикреплен пользователь",
+        blank=True,
+        null=True,
+        on_delete=django.db.models.deletion.CASCADE,
     )
 
     def get_image_x300(self):

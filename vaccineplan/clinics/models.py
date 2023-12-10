@@ -12,7 +12,7 @@ class Clinics(django.db.models.Model):
         DONE = ("OK", "ответ дан")
 
     admin = django.db.models.ForeignKey(
-        users.models.CustomUser,
+        to=django.conf.settings.AUTH_USER_MODEL,
         on_delete=django.db.models.deletion.CASCADE,
         help_text="администратор клиники, который будет работать в профиле",
         verbose_name="администратор",

@@ -102,7 +102,3 @@ class ActivateUserView(django.views.generic.TemplateView):
             context["info"] = data
 
         return context
-
-
-class ProfileView(django.views.generic.FormView):
-    
