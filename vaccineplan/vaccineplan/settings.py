@@ -32,6 +32,9 @@ EMAIL_FILE_PATH = BASE_DIR / "send_mail"
 INSTALLED_APPS = [
     "homepage.apps.HomepageConfig",
     "users.apps.UsersConfig",
+    "clinics.apps.ClinicsConfig",
+    "core.apps.CoreConfig",
+    "vaccines.apps.VaccinesConfig",
 
     "django.contrib.admin",
     "django.contrib.auth",
