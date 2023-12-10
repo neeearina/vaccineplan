@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     "core.apps.CoreConfig",
     "homepage.apps.HomepageConfig",
     "vaccines.apps.VaccinesConfig",
+    "vaccine_calendar.apps.VaccineCalendarConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
