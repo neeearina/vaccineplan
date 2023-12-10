@@ -26,13 +26,12 @@ class SignUpForm(django.contrib.auth.forms.UserCreationForm):
         ]
 
 
-# class ChangeForm(django.contrib.auth.forms.UserChangeForm):
-#     class Meta:
-#         model = users.models.CustomUser
-#         fields = [
-#             users.models.CustomUser.username.field.name,
-#             users.models.CustomUser.email.field.name,
-#             users.models.CustomUser.first_name.field.name,
-#             users.models.CustomUser.last_name.field.name,
-#             users.models.CustomUser.middle_name.field.name,
-#         ]
+class ProfileForm(django.forms.Form):
+    class Meta:
+        model = users.models.CustomUser
+        fields = [
+            users.models.CustomUser.first_name.field.name,
+            users.models.CustomUser.last_name.field.name,
+            users.models.CustomUser.middle_name.field.name,
+            users.models.CustomUser
+        ]

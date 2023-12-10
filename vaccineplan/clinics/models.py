@@ -41,6 +41,7 @@ class Clinics(django.db.models.Model):
         max_length=12,
         help_text="номер телефона для связи с администратором клиники",
         verbose_name="номер телефона",
+        # TODO: валидатор
     )
     status = django.db.models.CharField(
         "статус обработки",
@@ -59,7 +60,7 @@ class Clinics(django.db.models.Model):
         verbose_name_plural = "клиники"
 
     def __str__(self):
-        return f"Заявка {self.id}"
+        return f"Заявка #{self.id}"
 
 
 class StatusLog(django.db.models.Model):
@@ -103,4 +104,4 @@ class StatusLog(django.db.models.Model):
         verbose_name_plural = "логи статусов"
 
     def __str__(self):
-        return f"лог {self.id}"
+        return f"лог #{self.id}"
