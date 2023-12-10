@@ -13,6 +13,8 @@ class Clinics(django.db.models.Model):
 
     admin = django.db.models.ForeignKey(
         users.models.CustomUser,
+        null=True,
+        default=None,
         on_delete=django.db.models.deletion.CASCADE,
         help_text="администратор клиники, который будет работать в профиле",
         verbose_name="администратор",

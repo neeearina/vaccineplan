@@ -1,5 +1,5 @@
 import django.db.models as models
 
 
-class VaccineScheudleManager(models.Manager):
+class VaccineScheduleManager(models.Manager):
     pass
