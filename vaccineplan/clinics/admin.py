@@ -1,10 +1,10 @@
-from django.contrib import admin
+import django.contrib
 
 import clinics.models
 
 
-@admin.register(clinics.models.Clinics)
-class ClinicsAdmin(admin.ModelAdmin):
+@django.contrib.admin.register(clinics.models.Clinics)
+class ClinicsAdmin(django.contrib.ModelAdmin):
     list_display = (
         clinics.models.Clinics.name.field.name,
         clinics.models.Clinics.city.field.name,
@@ -34,8 +34,8 @@ class ClinicsAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 
-@admin.register(clinics.models.StatusLog)
-class StatusLogAdmin(admin.ModelAdmin):
+@django.contrib.admin.register(clinics.models.StatusLog)
+class StatusLogAdmin(django.contrib.ModelAdmin):
     list_display = (
         clinics.models.StatusLog.user.field.name,
         clinics.models.StatusLog.from_status.field.name,

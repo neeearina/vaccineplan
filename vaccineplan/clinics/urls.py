@@ -1,11 +1,11 @@
-from django.urls import path
+import django.urls
 
 import clinics.views
 
 app_name = "clinics"
 
 urlpatterns = [
-    path(
+    django.urls.path(
         "registration/",
         clinics.views.ClinicRegistrationFormView.as_view(),
         name="registration",

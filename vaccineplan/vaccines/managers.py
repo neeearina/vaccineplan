@@ -1,9 +1,9 @@
-import django.db.models as models
+import django.db.models
 
 
-class VaccineCategoriesManager(models.Manager):
+class VaccineCategoriesManager(django.db.models.Manager):
     pass
 
 
-class VaccinesManager(models.Manager):
+class VaccinesManager(django.db.models.Manager):
     pass
