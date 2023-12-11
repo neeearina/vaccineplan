@@ -4,7 +4,7 @@ import clinics.models
 
 
 @django.contrib.admin.register(clinics.models.Clinics)
-class ClinicsAdmin(django.contrib.ModelAdmin):
+class ClinicsAdmin(django.contrib.admin.ModelAdmin):
     list_display = (
         clinics.models.Clinics.name.field.name,
         clinics.models.Clinics.city.field.name,
@@ -35,7 +35,7 @@ class ClinicsAdmin(django.contrib.ModelAdmin):
 
 
 @django.contrib.admin.register(clinics.models.StatusLog)
-class StatusLogAdmin(django.contrib.ModelAdmin):
+class StatusLogAdmin(django.contrib.admin.ModelAdmin):
     list_display = (
         clinics.models.StatusLog.user.field.name,
         clinics.models.StatusLog.from_status.field.name,
