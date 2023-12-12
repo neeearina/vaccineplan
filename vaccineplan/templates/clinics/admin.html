@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static thumbnail %}
+{% load static widget_tweaks %}
+
+{% block title %}
+Администрирование клиники
+{% endblock %}
+
+
+{% block content %}
+<div class="container d-flex justify-content-center">
+  <img src="{{ clinic.main_image.image.url }}" width="300" height="300">
+</div>
+{% include "includes/form.html" with submit_value="Отправить" %}
+
+{% endblock %}

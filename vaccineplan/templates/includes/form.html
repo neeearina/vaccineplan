@@ -10,10 +10,8 @@
             {% for message in messages %}
               <h3{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h3>
             {% endfor %}
-        {% endif %}
-
+        {% else %}
         {% for field in form.visible_fields %}
-
         <div class="my-2">
           {% for error in field.errors %}
           <div class="my-1 alert alert-danger">
@@ -42,6 +40,7 @@
       {% endif %}
       <div class="my-2">
         <button type="submit" class="btn btn-primary">{{ submit_value }}</button>
+
         {% with request.resolver_match.view_name as view_name %}
 
         {% if view_name == "users:login" %}
@@ -51,6 +50,7 @@
         {% endif %}
 
         {% endwith %}
+        {% endif %}
       </div>
     </form>
   </div>

@@ -2,7 +2,9 @@ import django.conf
 import django.contrib.auth.models
 import django.core.validators
 import django.db.models
+import django.utils.safestring
 import phonenumber_field.modelfields
+import sorl.thumbnail
 
 
 class Clinics(django.db.models.Model):
@@ -80,6 +82,49 @@ class Clinics(django.db.models.Model):
 
     def __str__(self):
         return f"Заявка {self.id}"
+
+    def get_image_x300(self):
+        return sorl.thumbnail.get_thumbnail(
+            self.main_image.image,
+            "300x300",
+            crop="center",
+            quality=51,
+        )
+
+    def get_image_x50(self):
+        return sorl.thumbnail.get_thumbnail(
+            self.main_image.image,
+            "50x50",
+            crop="center",
+            quality=51,
+        )
+
+    def image_tmb(self):
+        if self.main_image:
+            return django.utils.safestring.mark_safe(
+                f'<img src="{self.get_image_x300().url}">',
+            )
+        return "изображения нет"
+
+
+class MainImage(django.db.models.Model):
+    image = django.db.models.ImageField(
+        upload_to="catalog/%Y/%m/%d/",
+        help_text="главное изображение поликлиники",
+        verbose_name="изображение",
+    )
+    clinic = django.db.models.OneToOneField(
+        Clinics,
+        on_delete=django.db.models.deletion.CASCADE,
+        related_name="main_image",
+        help_text="к какой клинике прикреплено фото",
+        verbose_name="клиника",
+        null=True,
+    )
+
+    class Meta:
+        verbose_name = "главное изображение"
+        verbose_name_plural = "главные изображения"
 
 
 class StatusLog(django.db.models.Model):
