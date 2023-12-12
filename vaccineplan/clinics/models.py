@@ -64,6 +64,11 @@ class Clinics(django.db.models.Model):
         choices=StatusChoices.choices,
         default=StatusChoices.GOT,
     )
+    approved = django.db.models.BooleanField(
+        default=False,
+        help_text="одобрена поликлиника для работы на сайте или нет",
+        verbose_name="одобрено",
+    )
     clinic_mail = django.db.models.EmailField(
         help_text="Электронная почта клиники",
         verbose_name="почта",

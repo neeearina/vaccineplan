@@ -1,6 +1,7 @@
 import django.contrib
 
 import clinics.models
+import core.mails
 
 
 @django.contrib.admin.register(clinics.models.Clinics)
@@ -9,6 +10,7 @@ class ClinicsAdmin(django.contrib.admin.ModelAdmin):
         clinics.models.Clinics.name.field.name,
         clinics.models.Clinics.city.field.name,
         clinics.models.Clinics.status.field.name,
+        clinics.models.Clinics.approved.field.name,
     )
     readonly_fields = (
         clinics.models.Clinics.name.field.name,
@@ -22,7 +24,7 @@ class ClinicsAdmin(django.contrib.admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         if change and form.cleaned_data["status"] != form.initial.get(
-            "status",
+            "status"
         ):
             clinics.models.StatusLog.objects.create(
                 user=request.user,
@@ -30,7 +32,12 @@ class ClinicsAdmin(django.contrib.admin.ModelAdmin):
                 to=form.cleaned_data.get("status"),
                 clinic=obj,
             )
-
+            print(form.cleaned_data)
+            core.mails.send_mail_to_clinic_admin(
+                form.cleaned_data["status"],
+                form.cleaned_data["approved"],
+                obj.clinic_mail,
+            )
         super().save_model(request, obj, form, change)
 
 
