@@ -1,0 +1,21 @@
+body {
+    height: 100%;
+    background-attachment: fixed;
+}
+
+table {
+    width: 100%
+}
+
+footer {
+    flex: 0 0 auto;
+}
+
+.container-relative {
+    position: relative;
+}
+
+.get-bottom {
+    position: absolute;
+    bottom: 0;
+}

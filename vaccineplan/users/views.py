@@ -3,6 +3,7 @@ import datetime
 import django.conf
 import django.contrib.auth
 import django.contrib.auth.decorators
+import django.contrib.auth.mixins
 import django.contrib.auth.models
 import django.core.mail
 import django.shortcuts
@@ -102,3 +103,43 @@ class ActivateUserView(django.views.generic.TemplateView):
             context["info"] = data
 
         return context
+
+
+class ProfileView(
+    django.contrib.auth.mixins.LoginRequiredMixin,
+    django.views.generic.FormView,
+):
+    template_name = "users/profile.html"
+    form_class = users.forms.ProfileForm
+    success_url = django.urls.reverse_lazy("users:profile")
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        instance = self.request.user
+        kwargs["initial"] = {
+            users.models.CustomUser.first_name.field.name:
+            instance.first_name,
+            users.models.CustomUser.last_name.field.name:
+            instance.last_name,
+            users.models.CustomUser.middle_name.field.name:
+            instance.middle_name,
+            users.models.CustomUser.birthday.field.name:
+            instance.birthday,
+            users.models.CustomUser.clinic.field.name:
+            instance.clinic,
+        }
+        return kwargs
+
+    def form_valid(self, form):
+        user = self.request.user
+        user.username = form.cleaned_data["username"]
+        user.first_name = form.cleaned_data["first_name"]
+        user.first_name = form.cleaned_data["first_name"]
+        user.last_name = form.cleaned_data["last_name"]
+        user.middle_name = form.cleaned_data["middle_name"]
+        user.birthday = form.cleaned_data["birthday"]
+        user.image = form.cleaned_data["image"]
+
+        user.full_clean()
+        user.save()
+        return super().form_valid(form)

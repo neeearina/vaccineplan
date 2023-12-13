@@ -8,7 +8,13 @@ import sorl
 import clinics.models
 
 
+class UserManager(django.contrib.auth.models.UserManager):
+    pass    
+
+
 class CustomUser(django.contrib.auth.models.AbstractUser):
+    objects = UserManager()
+
     def get_avatar_path(self, filename):
         return (
             pathlib.Path("users") / f"avatar_user_{str(self.user.id)}"
@@ -43,6 +49,12 @@ class CustomUser(django.contrib.auth.models.AbstractUser):
         blank=True,
         null=True,
         max_length=128,
+    )
+
+    is_clinic_admin = django.db.models.BooleanField(
+        verbose_name="администратор клиники",
+        help_text="является ли этот пользователь администратором клиники",
+        default=False,
     )
 
     clinic = django.db.models.ForeignKey(

@@ -13,6 +13,11 @@ urlpatterns = [
         name="activate",
     ),
     django.urls.path(
+        "profile/",
+        users.views.ProfileView.as_view(),
+        name="profile",
+    ),
+    django.urls.path(
         "login/",
         django.contrib.auth.views.LoginView.as_view(
             template_name="users/login.html",
