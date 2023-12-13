@@ -2,8 +2,6 @@ import django.conf
 import django.contrib.auth.models
 import django.db.models
 
-import users.models
-
 
 class Clinics(django.db.models.Model):
     class StatusChoices(django.db.models.TextChoices):
@@ -12,7 +10,7 @@ class Clinics(django.db.models.Model):
         DONE = ("OK", "ответ дан")
 
     admin = django.db.models.ForeignKey(
-        users.models.CustomUser,
+        to=django.conf.settings.AUTH_USER_MODEL,
         null=True,
         default=None,
         on_delete=django.db.models.deletion.CASCADE,
@@ -43,6 +41,7 @@ class Clinics(django.db.models.Model):
         max_length=12,
         help_text="номер телефона для связи с администратором клиники",
         verbose_name="номер телефона",
+        # TODO: валидатор
     )
     status = django.db.models.CharField(
         "статус обработки",
@@ -61,7 +60,7 @@ class Clinics(django.db.models.Model):
         verbose_name_plural = "клиники"
 
     def __str__(self):
-        return f"Заявка {self.id}"
+        return f"Заявка #{self.id}"
 
 
 class StatusLog(django.db.models.Model):
@@ -105,4 +104,4 @@ class StatusLog(django.db.models.Model):
         verbose_name_plural = "логи статусов"
 
     def __str__(self):
-        return f"лог {self.id}"
+        return f"лог #{self.id}"

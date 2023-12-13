@@ -5,12 +5,14 @@ import django.core.validators
 import django.db.models
 import sorl
 
+import clinics.models
+
 
 class CustomUser(django.contrib.auth.models.AbstractUser):
     def get_avatar_path(self, filename):
         return (
-            pathlib.Path("users")
-            / f"avatar_user_{str(self.user.id)}.{filename.split('.')[-1]}"
+            pathlib.Path("users") / f"avatar_user_{str(self.user.id)}"
+            f".{filename.split('.')[-1]}"
         )
 
     class GenderChoices(django.db.models.TextChoices):
@@ -41,6 +43,23 @@ class CustomUser(django.contrib.auth.models.AbstractUser):
         blank=True,
         null=True,
         max_length=128,
+    )
+
+    clinic = django.db.models.ForeignKey(
+        to=clinics.models.Clinics,
+        verbose_name="клиника",
+        help_text="клиника, к которой прикреплен пользователь",
+        blank=True,
+        null=True,
+        on_delete=django.db.models.deletion.CASCADE,
+        related_name="clinic",
+    )
+
+    featured_clinics = django.db.models.ManyToManyField(
+        to=clinics.models.Clinics,
+        verbose_name="отслеживаемые клиники",
+        help_text="клиники, которые выбрал пользователь для отслеживания",
+        related_name="featured_clinics",
     )
 
     def get_image_x300(self):
