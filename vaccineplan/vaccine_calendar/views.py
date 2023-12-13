@@ -20,7 +20,7 @@ class VaccineCalendarView(django.views.generic.ListView):
             super()
             .get_queryset()
             .filter(user=self.request.user.id)
-            .filter(timetable__gte=datetime.datetime.date.today())
+            # Добавить поддержку часовых поясов
         )
 
     def get_context_data(self, **kwargs):
