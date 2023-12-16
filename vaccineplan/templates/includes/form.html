@@ -4,12 +4,11 @@
   <div class="w-50">
     <form method="post">
       {% csrf_token %}
-
       <div class="my-2">
         {% if messages %}
-            {% for message in messages %}
-              <h3{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h3>
-            {% endfor %}
+        {% for message in messages %}
+          <h3{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h3>
+        {% endfor %}
         {% else %}
         {% for field in form.visible_fields %}
         <div class="my-2">

@@ -19,6 +19,12 @@ class Clinics(django.db.models.Model):
         help_text="Администратор клиники, который будет работать в профиле",
         verbose_name="администратор",
     )
+    image = django.db.models.ImageField(
+        upload_to="catalog/%Y/%m/%d/",
+        help_text="Главное изображение поликлиники",
+        verbose_name="изображение",
+        null=True,
+    )
     name = django.db.models.CharField(
         max_length=256,
         help_text="Название клиники",
@@ -60,20 +66,25 @@ class Clinics(django.db.models.Model):
         },
     )
     status = django.db.models.CharField(
-        "статус обработки",
         max_length=2,
-        help_text="статус обработки формы",
+        help_text="Статус обработки формы",
+        verbose_name="статус обработки",
         choices=StatusChoices.choices,
         default=StatusChoices.GOT,
     )
     approved = django.db.models.BooleanField(
         default=False,
-        help_text="одобрена поликлиника для работы на сайте или нет",
+        help_text="Одобрена поликлиника для работы на сайте или нет",
         verbose_name="одобрено",
     )
     clinic_mail = django.db.models.EmailField(
         help_text="Электронная почта клиники",
         verbose_name="почта",
+    )
+    private = django.db.models.BooleanField(
+        default=False,
+        help_text="Галочка, если клиника частная",
+        verbose_name="частная клиника",
     )
 
     class Meta:
@@ -105,26 +116,6 @@ class Clinics(django.db.models.Model):
                 f'<img src="{self.get_image_x300().url}">',
             )
         return "изображения нет"
-
-
-class MainImage(django.db.models.Model):
-    image = django.db.models.ImageField(
-        upload_to="catalog/%Y/%m/%d/",
-        help_text="главное изображение поликлиники",
-        verbose_name="изображение",
-    )
-    clinic = django.db.models.OneToOneField(
-        Clinics,
-        on_delete=django.db.models.deletion.CASCADE,
-        related_name="main_image",
-        help_text="к какой клинике прикреплено фото",
-        verbose_name="клиника",
-        null=True,
-    )
-
-    class Meta:
-        verbose_name = "главное изображение"
-        verbose_name_plural = "главные изображения"
 
 
 class StatusLog(django.db.models.Model):

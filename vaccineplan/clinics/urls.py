@@ -11,7 +11,7 @@ urlpatterns = [
         name="registration",
     ),
     django.urls.path(
-        "admin/",
+        "<int:pk>/admin/",
         clinics.views.ClinicAdmin.as_view(),
         name="admin",
     ),

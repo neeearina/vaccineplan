@@ -7,6 +7,7 @@ import django.views.generic
 
 import clinics.forms
 import clinics.models
+import vaccines.models
 
 __all__ = []
 
@@ -18,7 +19,7 @@ class ClinicRegistrationFormView(django.views.generic.FormView):
 
     def get(self, request, *args, **kwargs):
         if clinics.models.Clinics.objects.filter(
-            admin_id=request.user
+            admin_id=request.user,
         ).exists():
             django.contrib.messages.success(
                 request=self.request,
@@ -43,11 +44,24 @@ class ClinicAdmin(django.views.generic.UpdateView):
     form_class = clinics.forms.ClinicEditForm
 
     def get_object(self, queryset=None):
+        pk = self.kwargs["pk"]
         return clinics.models.Clinics.objects.get(
-            admin_id=self.request.user.id
+            admin_id=self.request.user,
+            pk=pk,
         )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        categories = vaccines.models.VaccineCategories.objects.all()
+        category_vaccines = {}
+        for category in categories:
+            category_vaccines[
+                category.name
+            ] = vaccines.models.Vaccines.objects.filter(
+                category=category,
+            ).values(
+                "name",
+            )
+        context["category_vaccines"] = category_vaccines
         context["clinic"] = self.get_object()
         return context
