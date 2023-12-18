@@ -57,15 +57,22 @@ class Vaccines(django.db.models.Model):
         return f"Вакцина {self.name}"
 
 
-class Availiability(django.db.models.Model):
+class Availability(django.db.models.Model):
+    objects = vaccines.managers.AvaliabilityManager()
     illness = django.db.models.ForeignKey(
         VaccineCategories,
         verbose_name=("заболевание"),
-        on_delete=django.db.models.CASCADE)
+        on_delete=django.db.models.CASCADE,
+    )
 
     clinic = django.db.models.ForeignKey(
         clinics.models.Clinics,
         verbose_name=("клиника"),
-        on_delete=django.db.models.CASCADE)
+        on_delete=django.db.models.CASCADE,
+    )
 
     is_free = django.db.models.BooleanField(("бесплатность"))
+
+    class Meta:
+        verbose_name = "Наличие"
+        verbose_name_plural = "Наличия"

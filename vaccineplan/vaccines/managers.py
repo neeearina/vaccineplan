@@ -1,9 +1,14 @@
-import django.db.models as models
+import django.db.models
 
 
-class VaccineCategoriesManager(models.Manager):
+class VaccineCategoriesManager(django.db.models.Manager):
     pass
 
 
-class VaccinesManager(models.Manager):
+class VaccinesManager(django.db.models.Manager):
     pass
+
+
+class AvaliabilityManager(django.db.models.Manager):
+    def get_by_illness(self, illness):
+        return self.get_queryset().filter(illness=illness)

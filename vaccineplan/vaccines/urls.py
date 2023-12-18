@@ -8,7 +8,7 @@ app_name = "vaccines"
 urlpatterns = [
     django.urls.path(
         "<int:pk>/",
-        vaccines.views.HomepageView.as_view(),
+        vaccines.views.VaccinesView.as_view(),
         name="vaccines",
     ),
 ]
