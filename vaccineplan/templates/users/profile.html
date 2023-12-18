@@ -21,7 +21,7 @@
       {% thumbnail request.user.image "400x400" crop="center" as img %}
 
       <a href="{{ img.url }}">
-        <img src="{{ request.user.image.url }}" class="rounded img-thumbnail" alt="Аватарка пользователя">
+        <img src="{{ img.url }}" class="rounded img-thumbnail" alt="Аватарка пользователя">
       </a>
 
       {% endthumbnail %}
@@ -86,7 +86,16 @@
     </div>
   </div>
 
-  
+  {% if messages %}
+
+  <div class="my-2 alert alert-success">
+    <h1 class="alert-heading">Успешно!</h1>
+    {% for msg in messages %}
+      <li>{{ msg }}</li>
+    {% endfor %}
+  </div>
+
+  {% endif %}
 
 </form>
 

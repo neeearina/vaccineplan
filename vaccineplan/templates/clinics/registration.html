@@ -1,25 +1,18 @@
 {% extends "base.html" %}
+
 {% load static %}
+
 {% block content %}
+
 <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}" >
 <h1 class="fs-1 fw-bold text-center">Регистрация клиники</h1>
 
-{% if messages %}
+<div class="my-1">
 
-<ul class="messages">
-
-  {% for message in messages %}
-
-  <h3{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h3>
-
-  {% endfor %}
-
-</ul>
-
-{% else %}
-
-{% include "includes/form.html" with submit_value="Зарегистрирровать" %}
+  {% include "includes/form.html" with submit_value="Зарегистрирровать" %}
 
 </div>
+
 {% endif %}
+
 {% endblock %}
