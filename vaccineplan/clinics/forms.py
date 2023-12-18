@@ -22,8 +22,6 @@ class ClinicsForm(django.forms.ModelForm):
 
 
 class ClinicEditForm(django.forms.ModelForm):
-    # private = django.forms.BooleanField(widget=django.forms.CheckboxInput)
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.visible_fields():

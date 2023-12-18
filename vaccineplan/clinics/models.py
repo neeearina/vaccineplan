@@ -9,6 +9,10 @@ import sorl.thumbnail
 
 
 class Clinics(django.db.models.Model):
+    class PrivateChoices(django.db.models.TextChoices):
+        PRIVATE = ("PR", "частная")
+        STATE = ("ST", "государственная")
+
     class StatusChoices(django.db.models.TextChoices):
         GOT = ("GT", "получено")
         IN_POCESSING = ("PR", "в обработке")
@@ -83,10 +87,12 @@ class Clinics(django.db.models.Model):
         help_text="Электронная почта клиники",
         verbose_name="почта",
     )
-    private = django.db.models.BooleanField(
-        default=False,
-        help_text="Галочка, если клиника частная",
-        verbose_name="частная клиника",
+    private = django.db.models.CharField(
+        max_length=2,
+        help_text="Частная или приватная клиника",
+        verbose_name="частная или приватная",
+        choices=PrivateChoices.choices,
+        default=PrivateChoices.STATE,
     )
 
     class Meta:
