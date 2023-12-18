@@ -14,7 +14,7 @@ urlpatterns = [
     ),
     django.urls.path(
         "profile/",
-        users.views.ProfileView.as_view(),
+        users.views.profile,
         name="profile",
     ),
     django.urls.path(

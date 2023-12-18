@@ -5,6 +5,7 @@ import django.contrib.auth
 import django.contrib.auth.decorators
 import django.contrib.auth.mixins
 import django.contrib.auth.models
+import django.contrib.messages
 import django.core.mail
 import django.shortcuts
 import django.urls
@@ -18,6 +19,40 @@ import users.models
 
 
 __all__ = []
+
+
+@django.contrib.auth.decorators.login_required
+def profile(request):
+    template = "users/profile.html"
+    user = request.user
+    form = users.forms.ProfileForm(
+        request.POST or None,
+        request.FILES or None,
+        instance=user,
+        initial={
+            "birthday": user.birthday,
+            "image": user.image,
+        },
+    )
+
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            django.contrib.messages.success(
+                request,
+                "Данные профиля успешно обновлены",
+            )
+            return django.shortcuts.redirect("users:profile")
+        django.contrib.messages.warning(
+            request,
+            "Некорректные данные",
+        )
+        return django.shortcuts.redirect("users:profile")
+
+    context = {
+        "form": form,
+    }
+    return django.shortcuts.render(request, template, context)
 
 
 class SignupFormView(django.views.generic.FormView):
@@ -131,15 +166,7 @@ class ProfileView(
         return kwargs
 
     def form_valid(self, form):
-        user = self.request.user
-        user.username = form.cleaned_data["username"]
-        user.first_name = form.cleaned_data["first_name"]
-        user.first_name = form.cleaned_data["first_name"]
-        user.last_name = form.cleaned_data["last_name"]
-        user.middle_name = form.cleaned_data["middle_name"]
+        user = form.save()
         user.birthday = form.cleaned_data["birthday"]
-        user.image = form.cleaned_data["image"]
-
-        user.full_clean()
         user.save()
         return super().form_valid(form)

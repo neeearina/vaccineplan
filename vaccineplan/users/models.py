@@ -8,19 +8,7 @@ import sorl
 import clinics.models
 
 
-class UserManager(django.contrib.auth.models.UserManager):
-    pass    
-
-
 class CustomUser(django.contrib.auth.models.AbstractUser):
-    objects = UserManager()
-
-    def get_avatar_path(self, filename):
-        return (
-            pathlib.Path("users") / f"avatar_user_{str(self.user.id)}"
-            f".{filename.split('.')[-1]}"
-        )
-
     class GenderChoices(django.db.models.TextChoices):
         MALE = ("M", "мужской")
         FEMALE = ("F", "женский")
@@ -41,7 +29,7 @@ class CustomUser(django.contrib.auth.models.AbstractUser):
         "аватарка",
         blank=True,
         null=True,
-        upload_to=get_avatar_path,
+        upload_to="users/%Y/%m/%d/",
     )
 
     middle_name = django.db.models.CharField(
