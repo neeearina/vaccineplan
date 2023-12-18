@@ -43,6 +43,12 @@ class ClinicAdmin(django.views.generic.UpdateView):
     template_name = "clinics/admin.html"
     form_class = clinics.forms.ClinicEditForm
 
+    def get_success_url(self):
+        return django.urls.reverse_lazy(
+            "clinics:admin",
+            kwargs={"pk": self.kwargs["pk",]},
+        )
+
     def get_object(self, queryset=None):
         pk = self.kwargs["pk"]
         return clinics.models.Clinics.objects.get(
@@ -60,6 +66,7 @@ class ClinicAdmin(django.views.generic.UpdateView):
             ] = vaccines.models.Vaccines.objects.filter(
                 category=category,
             ).values(
+                "id",
                 "name",
             )
         context["category_vaccines"] = category_vaccines

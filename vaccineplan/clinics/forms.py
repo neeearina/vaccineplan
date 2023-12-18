@@ -22,10 +22,15 @@ class ClinicsForm(django.forms.ModelForm):
 
 
 class ClinicEditForm(django.forms.ModelForm):
+    # private = django.forms.BooleanField(widget=django.forms.CheckboxInput)
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.visible_fields():
             field.field.widget.attrs["class"] = "form-control my-1"
+        self.fields[
+            clinics.models.Clinics.image.field.name
+        ].widget = django.forms.FileInput()
 
     class Meta:
         model = clinics.models.Clinics

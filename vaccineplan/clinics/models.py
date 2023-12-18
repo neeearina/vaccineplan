@@ -2,6 +2,7 @@ import django.conf
 import django.contrib.auth.models
 import django.core.validators
 import django.db.models
+import django.forms
 import django.utils.safestring
 import phonenumber_field.modelfields
 import sorl.thumbnail
@@ -24,6 +25,7 @@ class Clinics(django.db.models.Model):
         help_text="Главное изображение поликлиники",
         verbose_name="изображение",
         null=True,
+        blank=True,
     )
     name = django.db.models.CharField(
         max_length=256,
@@ -96,7 +98,7 @@ class Clinics(django.db.models.Model):
 
     def get_image_x300(self):
         return sorl.thumbnail.get_thumbnail(
-            self.main_image.image,
+            self.image,
             "300x300",
             crop="center",
             quality=51,
@@ -104,14 +106,14 @@ class Clinics(django.db.models.Model):
 
     def get_image_x50(self):
         return sorl.thumbnail.get_thumbnail(
-            self.main_image.image,
+            self.image,
             "50x50",
             crop="center",
             quality=51,
         )
 
     def image_tmb(self):
-        if self.main_image:
+        if self.image:
             return django.utils.safestring.mark_safe(
                 f'<img src="{self.get_image_x300().url}">',
             )
