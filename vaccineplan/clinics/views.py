@@ -59,7 +59,12 @@ class ClinicAdmin(django.views.generic.UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         categories = vaccines.models.VaccineCategories.objects.all()
-        category_vaccines = {category: vaccines.models.Vaccines.objects.filter(category=category) for category in categories} 
+        category_vaccines = {
+            category: vaccines.models.Vaccines.objects.filter(
+                category=category,
+            )
+            for category in categories
+        }
         context["category_vaccines"] = category_vaccines
         context["clinic"] = self.get_object()
         return context
