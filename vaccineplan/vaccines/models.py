@@ -71,7 +71,7 @@ class Availability(django.db.models.Model):
         on_delete=django.db.models.CASCADE,
     )
 
-    is_free = django.db.models.BooleanField(("бесплатность"))
+    # is_free = django.db.models.BooleanField(("бесплатность"))
 
     class Meta:
         verbose_name = "Наличие"

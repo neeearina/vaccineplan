@@ -7,33 +7,33 @@
 {% block content %}
 <h3> {{illness.name }} </h3>
 <p> {{illness.description|safe}}</p>
-<h1>{{paid_vaacines.first.id|safe}}</h1>
-<div class="container my-2 py-2 px-3">
-	<div class="row">
-		<div class="col-6 col-md-6 col-xl-4">
-		<div class="row">
-			{% for avaliability in free_vaccines %}
-			{% include "includes/vaccine_card.html" %}
-			{% empty %}
-			<div class="alert alert-dark">
-				<h4 class="alert-heading">Упс! Похоже, подходящих бесплатных вакцин нет в вашей поликлинике.</h4>
-				<p>Попробуйте заглянуть в другое время.</p>
+<div class="container">
+	<div class="row justify-content-evenly">
+		<div class="col-5">
+			<div class="row">
+				{% for avaliability in free_vaccines %}
+				{% ifchanged avaliability.clinic.name %}<h2 class="mx-2 fw-bold fs-4 mb-2">{{ avaliability.clinic.name }}</h2>{% endifchanged %}
+				{% include "includes/vaccine_card.html" %}
+				{% empty %}
+				<div class="alert alert-dark">
+					<h4 class="alert-heading">Упс! Похоже, подходящих бесплатных вакцин нет в вашей поликлинике.</h4>
+					<p>Попробуйте заглянуть в другое время.</p>
+				</div>
+				{% endfor %}
 			</div>
-			{% endfor %}
+		</div>
+		<div class="col-5">
+			<div class="row">
+				{% for avaliability in paid_vaccines %}
+				{% include "includes/vaccine_card.html" %}
+				{% empty %}
+				<div class="alert alert-dark">
+					<h4 class="alert-heading">Упс! Похоже, в вашем городе подходящих вакцин нет.</h4>
+					<p>Попробуйте заглянуть в другое время.
+				</div>
+				{% endfor %}
+			</div>
 		</div>
 	</div>
-	<div class="col-6 col-md-6 col-xl-4">
-		<div class="row">
-			{% for avaliability in paid_vaccines %}
-			{% include "includes/vaccine_card.html" %}
-			{% empty %}
-			<div class="alert alert-dark">
-				<h4 class="alert-heading">Упс! Похоже, в вашем городе подходящих вакцин нет.</h4>
-				<p>Попробуйте заглянуть в другое время.
-			</div>
-			{% endfor %}
-		</div>
-	</div>
-</div>
 </div>
 {% endblock %}
