@@ -46,7 +46,7 @@ class ClinicAdmin(django.views.generic.UpdateView):
     def get_success_url(self):
         return django.urls.reverse_lazy(
             "clinics:admin",
-            kwargs={"pk": self.kwargs["pk",]},
+            kwargs={"pk": self.kwargs["pk"]},
         )
 
     def get_object(self, queryset=None):
@@ -58,13 +58,53 @@ class ClinicAdmin(django.views.generic.UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        categories = vaccines.models.VaccineCategories.objects.all()
-        category_vaccines = {
-            category: vaccines.models.Vaccines.objects.filter(
-                category=category,
-            )
-            for category in categories
-        }
-        context["category_vaccines"] = category_vaccines
         context["clinic"] = self.get_object()
         return context
+
+
+def clinic_vaccines(request, pk):
+    template = "clinics/check_vaccines.html"
+
+    clinic_object = clinics.models.Clinics.objects.filter(pk=pk).first()
+    if request.method == "POST":
+        vaccines.models.Availability.objects.filter(clinic=pk).delete()
+        checked_vaccines = request.POST.getlist("vaccines")
+        for vaccine_id in checked_vaccines:
+            vaccine_object = (
+                vaccines.models.Vaccines.objects.filter(
+                    pk=int(vaccine_id)
+                ).first(),
+            )
+            vaccines.models.Availability.objects.create(
+                vaccines=vaccine_object,
+                clinic_id=clinic_object.id,
+            )
+        django.contrib.messages.add_message(
+            request,
+            django.contrib.messages.SUCCESS,
+            "Изменения успешно сохранены.",
+        )
+        return django.shortcuts.redirect(
+            "clinics:vaccines",
+            pk=pk,
+        )
+    categories = vaccines.models.VaccineCategories.objects.all()
+    category_vaccines = {
+        category: vaccines.models.Vaccines.objects.filter(
+            category=category,
+        )
+        for category in categories
+    }
+    already_checked = [
+        i.get("vaccines_id")
+        for i in vaccines.models.Availability.objects.filter(
+            clinic_id=clinic_object.id
+        )
+        .values("vaccines_id")
+        .all()
+    ]
+    context = {
+        "category_vaccines": category_vaccines,
+        "already_checked": already_checked,
+    }
+    return django.shortcuts.render(request, template, context)

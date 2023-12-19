@@ -1,5 +1,6 @@
 import django.db.models
 
+import clinics.models
 import vaccines.managers
 
 
@@ -53,3 +54,23 @@ class Vaccines(django.db.models.Model):
 
     def __str__(self):
         return f"Вакцина {self.name}"
+
+
+class Availability(django.db.models.Model):
+    vaccines = django.db.models.ForeignKey(
+        Vaccines,
+        help_text="название имеющейся вакцины в поликлинике",
+        verbose_name="вакцина",
+        on_delete=django.db.models.CASCADE,
+    )
+
+    clinic = django.db.models.ForeignKey(
+        clinics.models.Clinics,
+        help_text="поликлинка, в которой находится вакцина",
+        verbose_name="вакцина",
+        on_delete=django.db.models.CASCADE,
+    )
+
+    class Meta:
+        verbose_name = "Наличие"
+        verbose_name_plural = "Наличия"

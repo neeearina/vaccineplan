@@ -12,59 +12,13 @@
 <div class="container d-flex justify-content-center">
   <div>
     {% thumbnail clinic.image "200x200" crop="center" as img %}
-      <img src="{{ img.url }}" class="img-thumbnail">
+    <img src="{{ img.url }}" class="img-thumbnail">
     {% endthumbnail %}
   </div>
 </div>
 {% include "includes/form.html" with submit_value="Отправить" %}
-<!--<p>-->
-<!--  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">-->
-<!--    Список вакцин-->
-<!--  </button>-->
-<!--</p>-->
 
-<!--<div class="collapse" id="collapseExample">-->
-<!--  <div class="card card-body">-->
-<!--     <div class="accordion" id="accordionPanelsStayOpenExample">-->
-<!--    {% for category, vaccines in category_vaccines.items %}-->
-<!--    <div class="accordion-item">-->
-<!--      <h2 class="accordion-header" id="panelsStayOpen-heading{{ loop.index }}">-->
-<!--        <button class="accordion-button" type="button" data-bs-toggle="collapse{{ loop.index }}" data-bs-target="#panelsStayOpen-collapse{{ loop.index }}" aria-expanded="true" aria-controls="panelsStayOpen-collapse{{ loop.index }}">-->
-<!--          {{ category }}-->
-<!--        </button>-->
-<!--      </h2>-->
-<!--      {% for vaccine in vaccines %}-->
-<!--      <div id="panelsStayOpen-collapse{{ loop.index }}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading{{ loop.index }}">-->
-<!--        <div class="accordion-body">-->
-<!--          <div>-->
-<!--            <input id="html{{ loop.index }}" type="checkbox">-->
-<!--            <label for="html{{ loop.index }}">{{ vaccine.name }}</label>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      {% endfor %}-->
-<!--    </div>-->
-<!--  {% endfor %}-->
-<!--</div>-->
-<!--  </div>-->
-<!--</div>-->
-<div class="accordion" id="accordionPanelsStayOpenExample">
-  {% for category in category_vaccines.items %}
-  <div class="accordion-item">
-    <h2 class="accordion-header">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse{{category.0.id}}" aria-expanded="true" aria-controls="panelsStayOpen-collapse{{category.0.id}}">
-        {{ category.0.name }}
-      </button>
-    </h2>
-    <div id="panelsStayOpen-collapse{{category.0.id}}" class="accordion-collapse collapse">
-      <div class="accordion-body">
-        {% for vaccine in category.1 %}
-        <div class="accordion-body">{{ vaccine.name }}</div>
-        {% endfor %}
-      </div>
-    </div>
-  {% endfor %}
-</div>
+<a class="btn btn-primary" href="{% url 'clinics:vaccines' pk=clinic.id %}">Добавить вакцины</a>
 
 {% endblock %}
 
