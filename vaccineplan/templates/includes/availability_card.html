@@ -1,0 +1,16 @@
+<div class="col-12">
+  <div class="card my-3 shadow">
+    <div class="card-body">
+      <a class="card-title fs-5">{{ availability.vaccine.name }}</a>
+      <div class="card-text fs-6 text-muted">
+      	{{ availability.clinic.address|safe }}
+      </div>
+      <div class="card-text fs-6 text-muted">
+        {{ availability.clinic.clinic_mail|safe }}
+      </div>
+      <div class="card-text fs-6 text-muted">
+      	{{ availability.clinic.phone_number|safe }}
+      </div>
+    </div>
+  </div>
+</div>

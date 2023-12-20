@@ -1,22 +1,23 @@
-import django.db.models as models
+import django.db.models
 
+import clinics.models
 import vaccines.managers
 
 
-class VaccineCategories(models.Model):
+class VaccineCategories(django.db.models.Model):
     objects = vaccines.managers.VaccineCategoriesManager()
 
-    name = models.CharField(
+    name = django.db.models.CharField(
         max_length=100,
         help_text="название болезни",
         verbose_name="болезнь",
     )
-    description = models.TextField(
+    description = django.db.models.TextField(
         blank=True,
         help_text="описание болезни",
         verbose_name="описание",
     )
-    num_of_vaccines = models.PositiveIntegerField(
+    num_of_vaccines = django.db.models.PositiveIntegerField(
         default=0,
         blank=True,
         help_text="общее количество разработанных вакцин от этой болезни",
@@ -31,17 +32,17 @@ class VaccineCategories(models.Model):
         return f"Категория вакцины {self.name}"
 
 
-class Vaccines(models.Model):
+class Vaccines(django.db.models.Model):
     objects = vaccines.managers.VaccinesManager()
 
-    name = models.CharField(
+    name = django.db.models.CharField(
         max_length=150,
         help_text="название вакцины, производство",
         verbose_name="вакцина",
     )
-    category = models.ForeignKey(
+    category = django.db.models.ForeignKey(
         VaccineCategories,
-        on_delete=models.CASCADE,
+        on_delete=django.db.models.CASCADE,
         null=True,
         help_text="категория вакцины - название болезни,"
         " от которой она предназначена",
@@ -54,3 +55,27 @@ class Vaccines(models.Model):
 
     def __str__(self):
         return f"Вакцина {self.name}"
+
+
+class Availability(django.db.models.Model):
+    objects = vaccines.managers.AvaliabilityManager()
+
+    vaccine = django.db.models.ForeignKey(
+        Vaccines,
+        verbose_name=("вакцина"),
+        null=True,
+        on_delete=django.db.models.CASCADE,
+    )
+
+    clinic = django.db.models.ForeignKey(
+        clinics.models.Clinics,
+        verbose_name=("клиника"),
+        null=True,
+        on_delete=django.db.models.CASCADE,
+    )
+
+    # is_free = django.db.models.BooleanField(("бесплатность"))
+
+    class Meta:
+        verbose_name = "Наличие"
+        verbose_name_plural = "Наличия"
