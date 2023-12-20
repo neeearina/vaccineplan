@@ -8,6 +8,20 @@ import sorl
 import clinics.models
 
 
+class City(django.db.models.Model):
+    name = django.db.models.CharField(
+        verbose_name="название города",
+        max_length=128,
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "город"
+        verbose_name_plural = "города"
+
+
 class CustomUser(django.contrib.auth.models.AbstractUser):
     def get_avatar_path(self, filename):
         return (
@@ -68,6 +82,13 @@ class CustomUser(django.contrib.auth.models.AbstractUser):
         related_name="featured_clinics",
     )
 
+    city = django.db.models.ForeignKey(
+        to=City,
+        verbose_name="город",
+        help_text="город проживания пользователя",
+        on_delete=django.db.models.deletion.CASCADE,
+    )
+
     def get_image_x300(self):
         return sorl.thumbnail.get_thumbnail(
             self.image,
@@ -85,10 +106,3 @@ class CustomUser(django.contrib.auth.models.AbstractUser):
 
     image_tmb.short_description = "превью (300x300)"
     image_tmb.allow_tags = True
-
-
-class City(django.db.models.Model):
-    name = django.db.models.CharField(
-        verbose_name="название города",
-        max_length=128,
-    )

@@ -43,7 +43,7 @@
     </div>
   </div>
 
-  <div class="row p-2 pe-lg-0 pt-lg-5 align-items-center rounded-4 border shadow-lg my-3">
+  <div class="row p-2 pe-lg-0 pt-lg-3 align-items-center rounded-4 border shadow-lg my-3">
     <h2 class="lead pb-2 border-bottom fs-2">Как мы работаем?</h2>
     <div class="row g-4 py-1 row-cols-1 row-cols-lg-3">
       <div class="col">
@@ -69,20 +69,39 @@
       </div>
     </div>
   </div>
+
+  <div class="row p-2 pe-lg-0 pt-lg-3 align-items-center rounded-4 border shadow-lg my-3">
+    <div class="d-grid gap-2">
+      <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#illnesses_collapse" role="button" aria-controls="illnesses_collapse">
+        Краткая справка по болезням
+      </a>
+    </div>
+    <div class="collapse my-2" id="illnesses_collapse">
+      <div class="row">
+        {% for illness in illnesses %}
+    
+        {% include "includes/illness_card.html" %}
+    
+        {% empty %}
+    
+        <div class="alert alert-dark">
+          <h4 class="alert-heading">Список болезней пуст</h4>
+          <p>Произошла ошибка, попробуйте заглянуть в другое время</p>
+        </div>
+        {% endfor %}
+
+        {% if illnesses %}
+        <div class="d-grid gap-2">
+          <a class="btn btn-outline-secondary" data-bs-toggle="collapse" href="#illnesses_collapse" role="button" aria-controls="illnesses_collapse">
+            Свернуть
+          </a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
   
 
-  <div class="row">
-    {% for illness in illnesses %}
-
-    {% include "includes/illness_card.html" %}
-
-    {% empty %}
-
-    <div class="alert alert-dark">
-      <h4 class="alert-heading">Список болезней пуст</h4>
-      <p>Произошла ошибка, попробуйте заглянуть в другое время</p>
-    </div>
-    {% endfor %}
-  </div>
+  
 </div>
 {% endblock %}

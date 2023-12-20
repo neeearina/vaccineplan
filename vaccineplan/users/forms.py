@@ -14,6 +14,16 @@ class SignUpForm(django.contrib.auth.forms.UserCreationForm):
         required=True,
     )
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields[
+            users.models.CustomUser.birthday.field.name
+        ].widget = django.forms.fields.TextInput(
+            {
+                "type": "date",
+            },
+        )
+
     class Meta:
         model = users.models.CustomUser
         fields = [
@@ -22,6 +32,7 @@ class SignUpForm(django.contrib.auth.forms.UserCreationForm):
             users.models.CustomUser.first_name.field.name,
             users.models.CustomUser.last_name.field.name,
             users.models.CustomUser.middle_name.field.name,
+            users.models.CustomUser.city.field.name,
             users.models.CustomUser.gender.field.name,
             users.models.CustomUser.birthday.field.name,
         ]
@@ -49,6 +60,7 @@ class ProfileForm(django.forms.ModelForm):
             users.models.CustomUser.last_name.field.name,
             users.models.CustomUser.middle_name.field.name,
             users.models.CustomUser.birthday.field.name,
+            users.models.CustomUser.city.field.name,
             users.models.CustomUser.image.field.name,
             users.models.CustomUser.clinic.field.name,
         ]
