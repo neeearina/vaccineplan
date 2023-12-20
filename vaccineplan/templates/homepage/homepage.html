@@ -43,7 +43,7 @@
     </div>
   </div>
 
-  <div class="row py-2 px-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg my-3">
+  <div class="row p-2 pe-lg-0 pt-lg-5 align-items-center rounded-4 border shadow-lg my-3">
     <h2 class="lead pb-2 border-bottom fs-2">Как мы работаем?</h2>
     <div class="row g-4 py-1 row-cols-1 row-cols-lg-3">
       <div class="col">
@@ -58,7 +58,7 @@
           <img src="{% static 'img/clinic.svg' %}" width="32" height="32" class="bi">
         </div>
         <h3 class="lead fs-2 fw-semibold">Поликлиники</h3>
-        <p class="text-muted">Пользователи, получившие подтверждение от администрации сервиса могут администрировать поликлинику, изменяя текущий состав вакцин в наличии.</p>
+        <p class="text-muted">Пользователи, получившие подтверждение от администрации сервиса могут управлять поликлиникой, изменяя текущий состав вакцин в наличии.</p>
       </div>
       <div class="col">
         <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3 p-3" style="border-radius: 12px;">
@@ -79,8 +79,8 @@
     {% empty %}
 
     <div class="alert alert-dark">
-      <h4 class="alert-heading">Упс! Похоже, товаров нет.</h4>
-      <p>Попробуйте заглянуть в другое время или добавьте сами. Также можете проверить, корректно ли настроен фильтр.
+      <h4 class="alert-heading">Список болезней пуст</h4>
+      <p>Произошла ошибка, попробуйте заглянуть в другое время</p>
     </div>
     {% endfor %}
   </div>
