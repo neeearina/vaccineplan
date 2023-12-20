@@ -15,4 +15,9 @@ urlpatterns = [
         clinics.views.ClinicAdmin.as_view(),
         name="admin",
     ),
+    django.urls.path(
+        "<int:pk>/admin/vaccines/",
+        clinics.views.clinic_vaccines,
+        name="vaccines",
+    ),
 ]

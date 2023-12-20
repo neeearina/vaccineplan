@@ -72,7 +72,7 @@ def clinic_vaccines(request, pk):
         for vaccine_id in checked_vaccines:
             vaccine_object = (
                 vaccines.models.Vaccines.objects.filter(
-                    pk=int(vaccine_id)
+                    pk=int(vaccine_id),
                 ).first(),
             )
             vaccines.models.Availability.objects.create(
@@ -98,7 +98,7 @@ def clinic_vaccines(request, pk):
     already_checked = [
         i.get("vaccines_id")
         for i in vaccines.models.Availability.objects.filter(
-            clinic_id=clinic_object.id
+            clinic_id=clinic_object.id,
         )
         .values("vaccines_id")
         .all()
