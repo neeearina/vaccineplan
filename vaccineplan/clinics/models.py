@@ -9,11 +9,10 @@ class Clinics(django.db.models.Model):
         IN_POCESSING = ("PR", "в обработке")
         DONE = ("OK", "ответ дан")
 
-    admin = django.db.models.ForeignKey(
+    admins = django.db.models.ManyToManyField(
         to=django.conf.settings.AUTH_USER_MODEL,
-        on_delete=django.db.models.deletion.CASCADE,
-        help_text="администратор клиники, который будет работать в профиле",
-        verbose_name="администратор",
+        help_text="администраторs клиники",
+        verbose_name="администраторы",
     )
     name = django.db.models.CharField(
         max_length=256,

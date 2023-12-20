@@ -12,7 +12,7 @@ class CustomUser(django.contrib.auth.models.AbstractUser):
     def get_avatar_path(self, filename):
         return (
             pathlib.Path("users") / f"avatar_user_{str(self.user.id)}"
-            f".{filename.split(".")[-1]}"
+            f".{filename.split('.')[-1]}"
         )
 
     class GenderChoices(django.db.models.TextChoices):
@@ -35,7 +35,7 @@ class CustomUser(django.contrib.auth.models.AbstractUser):
         "аватарка",
         blank=True,
         null=True,
-        upload_to=get_avatar_path,
+        upload_to="users/%Y/%m/%d/",
     )
 
     middle_name = django.db.models.CharField(
@@ -43,6 +43,12 @@ class CustomUser(django.contrib.auth.models.AbstractUser):
         blank=True,
         null=True,
         max_length=128,
+    )
+
+    is_clinic_admin = django.db.models.BooleanField(
+        verbose_name="администратор клиники",
+        help_text="является ли этот пользователь администратором клиники",
+        default=False,
     )
 
     clinic = django.db.models.ForeignKey(
@@ -79,3 +85,10 @@ class CustomUser(django.contrib.auth.models.AbstractUser):
 
     image_tmb.short_description = "превью (300x300)"
     image_tmb.allow_tags = True
+
+
+class City(django.db.models.Model):
+    name = django.db.models.CharField(
+        verbose_name="название города",
+        max_length=128,
+    )

@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block title %}
 Главная страница
 {% endblock %}
@@ -7,13 +9,78 @@
 {% block content %}
 
 <div class="container my-2 py-2 px-3">
+
+  <div class="px-2 pb-4">
+    <h1 class="display-6 fw-bold text-body-emphasis text-center">Приветствуем Вас на нашем сайте!</h1>
+    <div class="col-lg-7 mx-auto">
+      <p class="lead mb-2">Наш сервис предоставляет удобную возможность организации вакцинации населения для поликлиник и пациентов</p>
+      <div class="row my-1">
+
+        {% if not user.is_authenticated %}
+  
+        <div class="col">
+          <div class="d-grid gap-2">
+            <a class="btn btn-outline-success" href="users:login">Войти</a>
+          </div>
+        </div>
+        <div class="col">
+          <div class="d-grid gap-2">
+            <a class="btn btn-warning" href="{% url 'users:signup' %}">Зарегистрироваться</a>
+          </div>
+        </div>
+      </div>
+
+      {% else %}
+
+      <div class="col">
+        <div class="d-grid gap-2">
+          <a class="btn btn-outline-primary" href="#">Перейти к календарю</a>
+        </div>
+      </div>
+
+      {% endif %}
+
+    </div>
+  </div>
+
+  <div class="row p-2 pe-lg-0 pt-lg-5 align-items-center rounded-4 border shadow-lg my-3">
+    <h2 class="lead pb-2 border-bottom fs-2">Как мы работаем?</h2>
+    <div class="row g-4 py-1 row-cols-1 row-cols-lg-3">
+      <div class="col">
+        <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3 p-3" style="border-radius: 12px;">
+            <img src="{% static 'img/user.svg' %}" width="32" height="32" class="bi">
+        </div>
+        <h3 class="lead fs-2 fw-semibold">Пользователь</h3>
+        <p class="text-muted">Зарегистрированный пользователь получает возможность мониторинга ситуации по вакцинам в своём городе, а так же составлять список вакцинаций на основе того, что имеется в наличии на данный момент.</p>
+      </div>
+      <div class="col">
+        <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3 p-3" style="border-radius: 12px;">
+          <img src="{% static 'img/clinic.svg' %}" width="32" height="32" class="bi">
+        </div>
+        <h3 class="lead fs-2 fw-semibold">Поликлиники</h3>
+        <p class="text-muted">Пользователи, получившие подтверждение от администрации сервиса могут управлять поликлиникой, изменяя текущий состав вакцин в наличии.</p>
+      </div>
+      <div class="col">
+        <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3 p-3" style="border-radius: 12px;">
+          <img src="{% static 'img/admin.svg' %}" width="32" height="32" class="bi">
+        </div>
+        <h3 class="lead fs-2 fw-semibold">Администрирование</h3>
+        <p class="text-muted">Администраторы поликлиник получают возможность мониторинга числа пользователей, прикрепленных к их поликлинике, а так же расширенные возможности взаимодействия с ресурсом.</p>
+      </div>
+    </div>
+  </div>
+  
+
   <div class="row">
     {% for illness in illnesses %}
+
     {% include "includes/illness_card.html" %}
+
     {% empty %}
+
     <div class="alert alert-dark">
-      <h4 class="alert-heading">Упс! Похоже, товаров нет.</h4>
-      <p>Попробуйте заглянуть в другое время или добавьте сами. Также можете проверить, корректно ли настроен фильтр.
+      <h4 class="alert-heading">Список болезней пуст</h4>
+      <p>Произошла ошибка, попробуйте заглянуть в другое время</p>
     </div>
     {% endfor %}
   </div>

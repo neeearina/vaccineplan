@@ -44,6 +44,6 @@ class ClinicsForm(django.forms.ModelForm):
     class Meta:
         model = clinics.models.Clinics
         exclude = [
-            clinics.models.Clinics.admin.field.name,
+            clinics.models.Clinics.admins.field.name,
             clinics.models.Clinics.status.field.name,
         ]

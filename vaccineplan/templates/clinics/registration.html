@@ -1,24 +1,28 @@
 {% extends "base.html" %}
-{% load static %}
-{% block content %}
-<link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}" >
-<h1>Регистрация клиники</h1>
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <h3{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h3>
-    {% endfor %}
-</ul>
-{% else %}
-<div>
-    <form method="post">
-    {% csrf_token %}
-    <ul>
-        {{ form.as_p }}
-    </ul>
-        <input type="submit" class="btn btn-success" value="Отправить!">
 
-</form>
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}" >
+<h1 class="fs-1 fw-bold text-center">Регистрация клиники</h1>
+
+{% if messages %}
+      
+<div class="alert alert-dark my-1">
+
+  {% for message in messages %}
+
+  <p class="text-center">{{ message }}</p>
+
+  {% endfor %}
+  
 </div>
+
 {% endif %}
+
+{% include "includes/form.html" with submit_value="Зарегистрировать" %}
+
+</div>
+
 {% endblock %}

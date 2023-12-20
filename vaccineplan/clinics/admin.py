@@ -12,7 +12,7 @@ class ClinicsAdmin(admin.ModelAdmin):
     )
     readonly_fields = (
         clinics.models.Clinics.name.field.name,
-        clinics.models.Clinics.admin.field.name,
+        clinics.models.Clinics.admins.field.name,
         clinics.models.Clinics.city.field.name,
         clinics.models.Clinics.address.field.name,
         clinics.models.Clinics.lisense.field.name,

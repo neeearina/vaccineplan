@@ -127,7 +127,7 @@ class Migration(migrations.Migration):
                     models.ImageField(
                         blank=True,
                         null=True,
-                        upload_to=users.models.CustomUser.get_avatar_path,
+                        upload_to="users/%Y/%m/%d/",
                         verbose_name="аватарка",
                     ),
                 ),

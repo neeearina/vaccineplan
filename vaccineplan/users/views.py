@@ -3,7 +3,9 @@ import datetime
 import django.conf
 import django.contrib.auth
 import django.contrib.auth.decorators
+import django.contrib.auth.mixins
 import django.contrib.auth.models
+import django.contrib.messages
 import django.core.mail
 import django.shortcuts
 import django.urls
@@ -17,6 +19,40 @@ import users.models
 
 
 __all__ = []
+
+
+@django.contrib.auth.decorators.login_required
+def profile(request):
+    template = "users/profile.html"
+    user = request.user
+    form = users.forms.ProfileForm(
+        request.POST or None,
+        request.FILES or None,
+        instance=user,
+        initial={
+            "birthday": user.birthday,
+            "image": user.image,
+        },
+    )
+
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            django.contrib.messages.success(
+                request,
+                "Данные профиля успешно обновлены",
+            )
+            return django.shortcuts.redirect("users:profile")
+        django.contrib.messages.warning(
+            request,
+            "Некорректные данные",
+        )
+        return django.shortcuts.redirect("users:profile")
+
+    context = {
+        "form": form,
+    }
+    return django.shortcuts.render(request, template, context)
 
 
 class SignupFormView(django.views.generic.FormView):
@@ -102,3 +138,30 @@ class ActivateUserView(django.views.generic.TemplateView):
             context["info"] = data
 
         return context
+
+
+class ProfileView(
+    django.contrib.auth.mixins.LoginRequiredMixin,
+    django.views.generic.FormView,
+):
+    template_name = "users/profile.html"
+    form_class = users.forms.ProfileForm
+    success_url = django.urls.reverse_lazy("users:profile")
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        instance = self.request.user
+        kwargs["initial"] = {
+            users.models.CustomUser.first_name.field.name: instance.first_name,
+            users.models.CustomUser.last_name.field.name: instance.last_name,
+            users.models.CustomUser.middle_name.field.name: instance.middle_name,
+            users.models.CustomUser.birthday.field.name: instance.birthday,
+            users.models.CustomUser.clinic.field.name: instance.clinic,
+        }
+        return kwargs
+
+    def form_valid(self, form):
+        user = form.save()
+        user.birthday = form.cleaned_data["birthday"]
+        user.save()
+        return super().form_valid(form)
