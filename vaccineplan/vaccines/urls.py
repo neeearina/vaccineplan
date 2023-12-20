@@ -9,6 +9,6 @@ urlpatterns = [
     django.urls.path(
         "<int:pk>/",
         vaccines.views.VaccinesView.as_view(),
-        name="vaccines",
+        name="vaccine_info",
     ),
 ]

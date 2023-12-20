@@ -2,6 +2,8 @@ import django.conf
 import django.contrib.auth.models
 import django.db.models
 
+import core.models
+
 
 class Clinics(django.db.models.Model):
     class StatusChoices(django.db.models.TextChoices):
@@ -19,10 +21,11 @@ class Clinics(django.db.models.Model):
         help_text="название клиники",
         verbose_name="клиника",
     )
-    city = django.db.models.CharField(
-        max_length=128,
+    city = django.db.models.ForeignKey(
+        to=core.models.City,
         help_text="город/населенный пункт, в котором находится клиника",
-        verbose_name="место",
+        verbose_name="город",
+        on_delete=django.db.models.deletion.CASCADE,
     )
     address = django.db.models.CharField(
         max_length=128,
@@ -57,7 +60,7 @@ class Clinics(django.db.models.Model):
         verbose_name_plural = "клиники"
 
     def __str__(self):
-        return f"Заявка #{self.id}"
+        return self.name
 
 
 class StatusLog(django.db.models.Model):

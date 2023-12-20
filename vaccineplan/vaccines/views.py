@@ -9,12 +9,13 @@ class VaccinesView(django.views.generic.ListView):
     context_object_name = "free_vaccines"
 
     def get_queryset(self):
-        if self.request.user.clinic:
-            return vaccines.models.Availability.objects.get_by_illness(
-                self.kwargs["pk"],
-            ).filter(
-                clinic=self.request.user__clinic,
-            )
+        if self.request.user.is_authenticated:
+            if self.request.user.clinic:
+                return vaccines.models.Availability.objects.get_by_illness(
+                    self.kwargs["pk"],
+                ).filter(
+                    clinic=self.request.user__clinic,
+                )
         return []
 
     def get_context_data(self, *args, **kwargs):
@@ -29,6 +30,5 @@ class VaccinesView(django.views.generic.ListView):
         #     paid_vaccines = paid_vaccines.filter(
         #         clinic__city=self.request.user__city,
         #     )
-        print(paid_vaccines.first())
         context["paid_vaccines"] = paid_vaccines.order_by("clinic__id")
         return context

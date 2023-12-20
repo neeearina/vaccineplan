@@ -6,20 +6,7 @@ import django.db.models
 import sorl
 
 import clinics.models
-
-
-class City(django.db.models.Model):
-    name = django.db.models.CharField(
-        verbose_name="название города",
-        max_length=128,
-    )
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = "город"
-        verbose_name_plural = "города"
+import core.models
 
 
 class CustomUser(django.contrib.auth.models.AbstractUser):
@@ -83,7 +70,7 @@ class CustomUser(django.contrib.auth.models.AbstractUser):
     )
 
     city = django.db.models.ForeignKey(
-        to=City,
+        to=core.models.City,
         verbose_name="город",
         help_text="город проживания пользователя",
         on_delete=django.db.models.deletion.CASCADE,

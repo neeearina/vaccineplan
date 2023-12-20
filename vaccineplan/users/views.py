@@ -138,30 +138,3 @@ class ActivateUserView(django.views.generic.TemplateView):
             context["info"] = data
 
         return context
-
-
-class ProfileView(
-    django.contrib.auth.mixins.LoginRequiredMixin,
-    django.views.generic.FormView,
-):
-    template_name = "users/profile.html"
-    form_class = users.forms.ProfileForm
-    success_url = django.urls.reverse_lazy("users:profile")
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        instance = self.request.user
-        kwargs["initial"] = {
-            users.models.CustomUser.first_name.field.name: instance.first_name,
-            users.models.CustomUser.last_name.field.name: instance.last_name,
-            users.models.CustomUser.middle_name.field.name: instance.middle_name,
-            users.models.CustomUser.birthday.field.name: instance.birthday,
-            users.models.CustomUser.clinic.field.name: instance.clinic,
-        }
-        return kwargs
-
-    def form_valid(self, form):
-        user = form.save()
-        user.birthday = form.cleaned_data["birthday"]
-        user.save()
-        return super().form_valid(form)

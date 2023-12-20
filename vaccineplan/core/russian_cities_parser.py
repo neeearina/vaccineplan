@@ -10,12 +10,13 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "vaccineplan.settings")
 django.setup()
 
 
-import users.models
+import core.models
 
 
 def parse_russian_cities():
-    with pathlib.Path("core/russian-cities.json").open(
-        mode="r", encoding="utf-8"
+    with pathlib.Path("core/russian_cities.json").open(
+        mode="r",
+        encoding="utf-8",
     ) as file:
         data = json.load(file)
 
@@ -24,7 +25,7 @@ def parse_russian_cities():
         cities.append(city["name"])
 
     for city_name in cities:
-        users.models.City.objects.create(name=city_name)
+        core.models.City.objects.create(name=city_name)
 
 
 if __name__ == "__main__":

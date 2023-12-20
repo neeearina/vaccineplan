@@ -1,39 +1,68 @@
 {% extends "base.html" %}
 
 {% block title %}
-Вакцины от {{illness.name}}
+Вакцины от {{ illness.name }}
 {% endblock %}
 
 {% block content %}
-<h3> {{illness.name }} </h3>
-<p> {{illness.description|safe}}</p>
+
+<h3 class="display-6 fw-bold text-center"> {{ illness.name }} </h3>
+<div class="row p-2 pe-lg-0 pt-lg-3 align-items-center rounded-3 border shadow-lg my-3 w-70">
+  <h2 class="lead pb-2 border-bottom fs-3">Описание</h2>
+  <p class="fs-6 text-muted">{{ illness.description|safe }}
+</div>
 <div class="container">
+
+  {% if user.is_authenticated %}
+
 	<div class="row justify-content-evenly">
 		<div class="col-5">
 			<div class="row">
+
 				{% for avaliability in free_vaccines %}
+
 				{% include "includes/availability_card.html" %}
+
 				{% empty %}
+
 				<div class="alert alert-dark">
 					<h4 class="alert-heading">Упс! Похоже, подходящих бесплатных вакцин нет в вашей поликлинике.</h4>
 					<p>Попробуйте заглянуть в другое время.</p>
 				</div>
+
 				{% endfor %}
+
 			</div>
 		</div>
 		<div class="col-5">
 			<div class="row">
+
 				{% for availability in paid_vaccines %}
+
 				{% ifchanged availability.clinic.name %}<h2 class="mx-2 fw-bold fs-4 mb-2">{{ availability.clinic.name }}</h2>{% endifchanged %}
-				{% include "includes/availability_card.html" %}
-				{% empty %}
+				
+        {% include "includes/availability_card.html" %}
+			
+        {% empty %}
 				<div class="alert alert-dark">
 					<h4 class="alert-heading">Упс! Похоже, в вашем городе подходящих вакцин нет.</h4>
 					<p>Попробуйте заглянуть в другое время.
 				</div>
+
 				{% endfor %}
+
 			</div>
 		</div>
 	</div>
+
+  {% else %}
+
+  <div class="alert alert-warning w-50 m-auto my-3">
+    <h1 class="alert-heading fs-3">Вы не авторизованы</h1>
+    <p>Для просмотра доступных вакцин необходинмо <a class="alert-link" href="{% url 'users:login' %}">авторизоваться</a></p>
+  </div>
+
+  {% endif %}
+
 </div>
 {% endblock %}

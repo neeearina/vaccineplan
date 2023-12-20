@@ -15,10 +15,6 @@ class ClinicsForm(django.forms.ModelForm):
         label="название клиники",
         help_text="название клиники, на которую подается заявка",
     )
-    city = django.forms.CharField(
-        label="город",
-        help_text="город/населенный пункт, в котором находится клиника",
-    )
     address = django.forms.CharField(
         label="адрес клиники",
         help_text="адрес, где находится клиника",
