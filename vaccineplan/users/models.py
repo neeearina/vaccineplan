@@ -79,3 +79,10 @@ class CustomUser(django.contrib.auth.models.AbstractUser):
 
     image_tmb.short_description = "превью (300x300)"
     image_tmb.allow_tags = True
+
+
+class City(django.db.models.Model):
+    name = django.db.models.CharField(
+        verbose_name="название города",
+        max_length=128,
+    )
