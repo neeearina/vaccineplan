@@ -12,7 +12,7 @@ class CustomUser(django.contrib.auth.models.AbstractUser):
     def get_avatar_path(self, filename):
         return (
             pathlib.Path("users") / f"avatar_user_{str(self.user.id)}"
-            f".{filename.split('.')[-1]}"
+            f".{filename.split(".")[-1]}"
         )
 
     class GenderChoices(django.db.models.TextChoices):

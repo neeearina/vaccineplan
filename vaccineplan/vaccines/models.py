@@ -59,15 +59,18 @@ class Vaccines(django.db.models.Model):
 
 class Availability(django.db.models.Model):
     objects = vaccines.managers.AvaliabilityManager()
-    illness = django.db.models.ForeignKey(
-        VaccineCategories,
-        verbose_name=("заболевание"),
+
+    vaccine = django.db.models.ForeignKey(
+        Vaccines,
+        verbose_name=("вакцина"),
+        null=True,
         on_delete=django.db.models.CASCADE,
     )
 
     clinic = django.db.models.ForeignKey(
         clinics.models.Clinics,
         verbose_name=("клиника"),
+        null=True,
         on_delete=django.db.models.CASCADE,
     )
 

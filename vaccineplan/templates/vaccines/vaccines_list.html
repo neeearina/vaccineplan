@@ -12,8 +12,7 @@
 		<div class="col-5">
 			<div class="row">
 				{% for avaliability in free_vaccines %}
-				{% ifchanged avaliability.clinic.name %}<h2 class="mx-2 fw-bold fs-4 mb-2">{{ avaliability.clinic.name }}</h2>{% endifchanged %}
-				{% include "includes/vaccine_card.html" %}
+				{% include "includes/availability_card.html" %}
 				{% empty %}
 				<div class="alert alert-dark">
 					<h4 class="alert-heading">Упс! Похоже, подходящих бесплатных вакцин нет в вашей поликлинике.</h4>
@@ -24,8 +23,9 @@
 		</div>
 		<div class="col-5">
 			<div class="row">
-				{% for avaliability in paid_vaccines %}
-				{% include "includes/vaccine_card.html" %}
+				{% for availability in paid_vaccines %}
+				{% ifchanged availability.clinic.name %}<h2 class="mx-2 fw-bold fs-4 mb-2">{{ availability.clinic.name }}</h2>{% endifchanged %}
+				{% include "includes/availability_card.html" %}
 				{% empty %}
 				<div class="alert alert-dark">
 					<h4 class="alert-heading">Упс! Похоже, в вашем городе подходящих вакцин нет.</h4>
