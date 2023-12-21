@@ -13,7 +13,6 @@ class Migration(migrations.Migration):
     dependencies = [
         ("core", "0001_initial"),
         ("clinics", "0001_initial"),
-        ("auth", "0014_alter_user_email"),
     ]
 
     operations = [

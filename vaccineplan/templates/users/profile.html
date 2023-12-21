@@ -93,7 +93,7 @@
       </div>
       <div class="my-3">
         <div class="d-grid gap-2">
-          <a class="btn btn-outline-success my-1 disabled" href="{% url 'clinics:registration' %}">Зарегистрировать клинику</a>
+          <a class="btn btn-outline-success my-1 {% if not user.is_active or user.admins_clinic %}disabled{% endif %}" href="{% url 'clinics:registration' %}">Зарегистрировать клинику</a>
         </div>    
       </div>
       {% if is_admin %}
