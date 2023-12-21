@@ -78,7 +78,7 @@ from django.core.management.utils import get_random_secret_key
 get_random_secret_key()
 ```
 
-## Последующие команды выполняются из директории проекта jobik_api
+## Последующие команды выполняются из директории проекта `vaccineplan`
 
 ### Выполните миграции для создания таблиц в БД:
 
