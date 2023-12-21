@@ -88,7 +88,7 @@ python3 manage.py migrate
 
 ### Актуальная ER диаграмма со структурой БД по ссылке
 
-[ERD](https://dbdiagram.io/d/VaccinePlan-65733c7756d8064ca0a9994)
+[ERD](https://dbdiagram.io/d/VaccinePlan-65733c7756d8064ca0a99943)
 
 ### Загрузите фикстуры в БД:
 
