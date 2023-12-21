@@ -13,6 +13,10 @@ urlpatterns = [
     django.urls.path("admin/", django.contrib.admin.site.urls),
     django.urls.path("clinics/", django.urls.include("clinics.urls")),
     django.urls.path("vaccines/", django.urls.include("vaccines.urls")),
+    django.urls.path(
+        "vaccine_calendar/",
+        django.urls.include("vaccine_calendar.urls"),
+    ),
 ]
 
 urlpatterns += django.conf.urls.static.static(

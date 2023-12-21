@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block title %}
 Вакцины от {{ illness.name }}
 {% endblock %}
@@ -19,7 +21,7 @@
 		<div class="col-5">
 			<div class="row">
 
-				{% for avaliability in free_vaccines %}
+				{% for availability in free_vaccines %}
 
 				{% include "includes/availability_card.html" %}
 

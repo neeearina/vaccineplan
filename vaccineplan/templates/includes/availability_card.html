@@ -2,7 +2,7 @@
   <div class="card my-3 shadow">
     <div class="card-body">
       <div class="border-bottom">
-        <h3 class="text-decoration-none card-title fs-5 fw-bold">{{ availability.vaccine.name }}</h3>
+        <a class="text-decoration-none card-title fs-5 fw-bold" href="{% url 'vaccine_calendar:record' availability.id %}">{{ availability.vaccines.name }}</a>
       </div>
       <div class="card-text fs-6 text-muted">
       	{{ availability.clinic.address|safe }}
