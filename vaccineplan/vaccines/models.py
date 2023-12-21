@@ -29,7 +29,7 @@ class VaccineCategories(django.db.models.Model):
         verbose_name_plural = "категории"
 
     def __str__(self):
-        return f"Категория вакцины {self.name}"
+        return f"Категория вакцины: {self.name}"
 
 
 class Vaccines(django.db.models.Model):
@@ -62,19 +62,17 @@ class Availability(django.db.models.Model):
 
     vaccine = django.db.models.ForeignKey(
         Vaccines,
-        verbose_name=("вакцина"),
+        verbose_name="вакцина",
         null=True,
         on_delete=django.db.models.CASCADE,
     )
 
     clinic = django.db.models.ForeignKey(
         clinics.models.Clinics,
-        verbose_name=("клиника"),
+        verbose_name="клиника",
         null=True,
         on_delete=django.db.models.CASCADE,
     )
-
-    # is_free = django.db.models.BooleanField(("бесплатность"))
 
     class Meta:
         verbose_name = "Наличие"
