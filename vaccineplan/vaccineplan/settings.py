@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "sorl.thumbnail",
     "django_cleanup.apps.CleanupConfig",
     "widget_tweaks",
+    "django_apscheduler",
 ]
 
 INTERNAL_IPS = [
