@@ -10,6 +10,9 @@ class ClinicsForm(django.forms.ModelForm):
             field.field.widget.attrs["class"] = "form-control my-1"
             field.field.widget.attrs["placeholder"] = field.field.label
             field.field.required = True
+        self.fields["image"].required = False
+        self.fields["city"].required = False
+        self.fields["private"].required = False
 
     class Meta:
         model = clinics.models.Clinics

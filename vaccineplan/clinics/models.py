@@ -39,6 +39,7 @@ class Clinics(django.db.models.Model):
         verbose_name="клиника",
     )
     city = django.db.models.ForeignKey(
+        default=613,
         to=core.models.City,
         help_text="город/населенный пункт, в котором находится клиника",
         verbose_name="город",
