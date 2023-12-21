@@ -35,7 +35,10 @@
         <div class="my-1 mx-1 d-grid gap-2">
           {{ form.image|add_class:"form-control" }}
         </div>
-
+        
+        <div class="d-grid gap-2 my-2">
+          {% if user.is_active %}<span class="fs-6 badge bg-success">Аккаунт активирован</span>{% else %}<span class="fs-6 badge bg-danger">Аккаунт не активирован</span>{% endif %}
+        </div>
     </div>
 
     <div class="col-6">

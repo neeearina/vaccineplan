@@ -7,11 +7,15 @@ import django.views.generic
 
 import clinics.forms
 import clinics.models
+import users.mixins
 
 __all__ = []
 
 
-class ClinicRegistrationFormView(django.views.generic.FormView):
+class ClinicRegistrationFormView(
+    users.mixins.ActiveUserRequiredMixin,
+    django.views.generic.FormView,
+):
     template_name = "clinics/registration.html"
     form_class = clinics.forms.ClinicsForm
     success_url = django.urls.reverse_lazy("clinics:registration")
