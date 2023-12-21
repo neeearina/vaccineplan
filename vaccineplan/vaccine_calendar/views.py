@@ -18,7 +18,7 @@ class VaccineCalendarView(django.views.generic.ListView):
 
     ordering = ["timetable"]
 
-    def get_queryset(self) -> django.db.models.query.QuerySet[typing.Any]:
+    def get_queryset(self):
         return (
             super()
             .get_queryset()
