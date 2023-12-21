@@ -109,5 +109,6 @@ def clinic_vaccines(request, pk):
     context = {
         "category_vaccines": category_vaccines,
         "already_checked": already_checked,
+        "clinic_id": clinic_object.id,
     }
     return django.shortcuts.render(request, template, context)
