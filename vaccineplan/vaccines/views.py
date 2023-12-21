@@ -14,7 +14,7 @@ class VaccinesView(django.views.generic.ListView):
                 return vaccines.models.Availability.objects.get_by_illness(
                     self.kwargs["pk"],
                 ).filter(
-                    clinic=self.request.user__clinic,
+                    clinic=self.request.user.clinic,
                 )
         return []
 
