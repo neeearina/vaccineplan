@@ -60,7 +60,7 @@ class Vaccines(django.db.models.Model):
 class Availability(django.db.models.Model):
     objects = vaccines.managers.AvaliabilityManager()
 
-    vaccine = django.db.models.ForeignKey(
+    vaccines = django.db.models.ForeignKey(
         Vaccines,
         verbose_name=("вакцина"),
         null=True,
@@ -73,8 +73,6 @@ class Availability(django.db.models.Model):
         null=True,
         on_delete=django.db.models.CASCADE,
     )
-
-    # is_free = django.db.models.BooleanField(("бесплатность"))
 
     class Meta:
         verbose_name = "Наличие"

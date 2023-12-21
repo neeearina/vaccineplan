@@ -1,7 +1,7 @@
 <div class="col-12">
   <div class="card my-3 shadow">
     <div class="card-body">
-      <a class="card-title fs-5">{{ availability.vaccine.name }}</a>
+      <a class="card-title fs-5" href="{% url 'vaccine_calendar:record' availability.id %}">{{ availability.vaccines.name }} </a>
       <div class="card-text fs-6 text-muted">
       	{{ availability.clinic.address|safe }}
       </div>
