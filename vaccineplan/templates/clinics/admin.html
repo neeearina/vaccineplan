@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load static thumbnail widget_tweaks %}
+
+{% block title %}
+Администрирование клиники
+{% endblock %}
+
+{% block content %}
+
+<h1 class="fs-1 fw-bold text-center">Администрирование поликлиники</h1>
+
+<form method="post" enctype="multipart/form-data">
+
+  {% csrf_token %}
+
+  <div class="my-2 row">
+    <div class="col-3 col-mb-4">
+
+      {% if clinic.image %}
+
+      {% thumbnail clinic.image "400x400" crop="center" as img %}
+
+      <a href="{{ img.url }}">
+        <img src="{{ clinic.image.url }}" class="rounded img-thumbnail" alt="Аватарка пользователя">
+      </a>
+
+      {% endthumbnail %}
+
+      {% else %}
+
+      <img src="{% static 'img/image_filler.png' %}" class="rounded img-thumbnail" alt="Аватарка пользователя">
+
+      {% endif %}
+
+      <div class="my-1 mx-1 d-grid gap-2">
+        {{ form.image|add_class:"form-control" }}
+      </div>
+    
+    </div>
+
+    <div class="col-6">
+
+      {% if messages %}
+      
+      <div class="alert alert-dark my-1">
+        {% for message in messages %}
+        <p class="text-center">{{ message }}</p>
+        {% endfor %}
+      </div>
+
+      {% endif %}
+
+      {% for field in form.visible_fields %}
+
+      {% if field.name != "image" %}
+
+      <div class="my-2">
+
+        {% for error in field.errors %}
+
+        <div class="my-1 alert alert-danger">
+          {{ error|escape }}
+        </div>
+
+        {% endfor %}
+
+      </div>
+
+      <div class="form-floating my-2">
+        {{ field|add_class:"form-control" }}
+        <label for="{{ field.auto_id }}">{{ field.label }}</label>
+      </div>
+
+      {% endif %}
+
+      {% endfor %}
+
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-primary my-2" type="submit">Сохранить изменения</button>
+      </div>
+    
+    </div>
+
+    <div class="col container-relative">
+      <div class="my-1">
+        <div class="d-grid gap-2">
+          <a class="btn btn-outline-success" href="{% url 'clinics:vaccines' pk=clinic.id %}">Ассортимент вакцин</a>
+        </div>
+      </div>
+    </div>
+</form>
+
+
+{% endblock %}
+
+
+

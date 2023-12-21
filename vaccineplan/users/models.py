@@ -6,9 +6,16 @@ import django.db.models
 import sorl
 
 import clinics.models
+import core.models
 
 
 class CustomUser(django.contrib.auth.models.AbstractUser):
+    def get_avatar_path(self, filename):
+        return (
+            pathlib.Path("users") / f"avatar_user_{str(self.user.id)}"
+            f".{filename.split('.')[-1]}"
+        )
+
     class GenderChoices(django.db.models.TextChoices):
         MALE = ("M", "мужской")
         FEMALE = ("F", "женский")
@@ -39,10 +46,14 @@ class CustomUser(django.contrib.auth.models.AbstractUser):
         max_length=128,
     )
 
-    is_clinic_admin = django.db.models.BooleanField(
-        verbose_name="администратор клиники",
-        help_text="является ли этот пользователь администратором клиники",
-        default=False,
+    admins_clinic = django.db.models.ForeignKey(
+        to=clinics.models.Clinics,
+        verbose_name="администрируемая клиника",
+        help_text="клиника, которой администрирует пользователь",
+        blank=True,
+        null=True,
+        on_delete=django.db.models.deletion.CASCADE,
+        related_name="admins_clinic",
     )
 
     clinic = django.db.models.ForeignKey(
@@ -60,6 +71,14 @@ class CustomUser(django.contrib.auth.models.AbstractUser):
         verbose_name="отслеживаемые клиники",
         help_text="клиники, которые выбрал пользователь для отслеживания",
         related_name="featured_clinics",
+    )
+
+    city = django.db.models.ForeignKey(
+        to=core.models.City,
+        verbose_name="город",
+        help_text="город проживания пользователя",
+        on_delete=django.db.models.deletion.CASCADE,
+        default=613,
     )
 
     def get_image_x300(self):

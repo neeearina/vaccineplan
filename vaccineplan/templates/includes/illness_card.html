@@ -1,0 +1,12 @@
+<div class="col-6 col-sm-6 col-md-4 col-xl-3 d-flex align-items-stretch">
+  <div class="card my-3 shadow">
+    <div class="card-body">
+      <div class="border-bottom pb-2">
+        <a class="text-decoration-none card-title fs-5 fw-bold" href="{% url 'vaccines:vaccine_info' illness.id %}">{{ illness.name }}</a>
+      </div>
+        <div class="card-text fs-6 text-muted">
+        {{ illness.description|truncatewords_html:20|safe }}  
+      </div>
+    </div>
+  </div>
+</div>

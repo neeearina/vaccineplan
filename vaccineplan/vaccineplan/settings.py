@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "clinics.apps.ClinicsConfig",
     "core.apps.CoreConfig",
     "vaccines.apps.VaccinesConfig",
+    "vaccine_calendar.apps.VaccineCalendarConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -176,3 +177,7 @@ CKEDITOR_CONFIGS = {
         ],
     },
 }
+
+EMAIL_ADDRESS = os.getenv("DJANGO_MAIL")
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = BASE_DIR / "send_mail"

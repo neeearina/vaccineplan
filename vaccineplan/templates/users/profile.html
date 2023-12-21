@@ -11,6 +11,7 @@
 <h1 class="fs-1 fw-bold text-center">Профиль</h1>
 
 <form method="post" enctype="multipart/form-data">
+
   {% csrf_token %}
 
   <div class="my-2 row">
@@ -35,10 +36,23 @@
         <div class="my-1 mx-1 d-grid gap-2">
           {{ form.image|add_class:"form-control" }}
         </div>
-
-    </div>
+        
+        <div class="d-grid gap-2 my-2">
+          {% if user.is_active %}<span class="fs-6 badge bg-success">Аккаунт активирован</span>{% else %}<span class="fs-6 badge bg-danger">Аккаунт не активирован</span>{% endif %}
+        </div>
+      </div>
 
     <div class="col-6">
+
+      {% if messages %}
+      
+      <div class="alert alert-dark my-1">
+        {% for message in messages %}
+        <p class="text-center">{{ message }}</p>
+        {% endfor %}
+      </div>
+
+      {% endif %}
 
       {% for field in form.visible_fields %}
 
@@ -69,7 +83,6 @@
         <button class="btn btn-primary my-2" type="submit">Сохранить изменения</button>
       </div>
       
-      
     </div>
 
     <div class="col container-relative">
@@ -80,22 +93,18 @@
       </div>
       <div class="my-3">
         <div class="d-grid gap-2">
-          <a class="btn btn-outline-success my-1" href="{% url 'clinics:registration' %}">Зарегистрировать клинику</a>
+          <a class="btn btn-outline-success my-1 disabled" href="{% url 'clinics:registration' %}">Зарегистрировать клинику</a>
         </div>    
       </div>
+      {% if is_admin %}
+      <div class="my-3">
+        <div class="d-grid gap-2">
+          <a class="btn btn-warning my-1" href="{% url 'clinics:admin' pk=admins_clinic_id %}">Администрировать клинику</a>
+        </div>    
+      </div>
+      {% endif %}
     </div>
   </div>
-
-  {% if messages %}
-
-  <div class="my-2 alert alert-success">
-    <h1 class="alert-heading">Успешно!</h1>
-    {% for msg in messages %}
-      <li>{{ msg }}</li>
-    {% endfor %}
-  </div>
-
-  {% endif %}
 
 </form>
 

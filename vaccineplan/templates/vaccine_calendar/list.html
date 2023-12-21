@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}
+Ваше расписание
+{% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+<h1 class="display-6 fw-bold text-center">Запланированные прививки</h1>
+<div class="my-4">
+
+  {% for record in object_list %}
+    {% include "includes/record_card.html" %}
+  {% empty %}
+
+  <div class="alert alert-dark">
+    <h1 class="alert-heading fs-4">Внимание</h1>
+    <p>Никаких прививок еще не запланировано. Вот такие пироги</p>
+  </div>
+
+  {% endfor %}
+
+
+</div>
+
+{% endblock %}

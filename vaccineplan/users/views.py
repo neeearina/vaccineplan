@@ -13,6 +13,7 @@ import django.utils.timezone
 import django.views.generic
 import jwt
 
+import clinics.models
 import core.utils
 import users.forms
 import users.models
@@ -52,6 +53,17 @@ def profile(request):
     context = {
         "form": form,
     }
+
+    is_admin = clinics.models.Clinics.objects.filter(
+        admin_id=request.user,
+    ).exists()
+    if is_admin:
+        admins_clinic_id = clinics.models.Clinics.objects.get(
+            admin_id=request.user,
+        ).id
+        context["admins_clinic_id"] = admins_clinic_id
+    context["is_admin"] = is_admin
+
     return django.shortcuts.render(request, template, context)
 
 
@@ -138,35 +150,3 @@ class ActivateUserView(django.views.generic.TemplateView):
             context["info"] = data
 
         return context
-
-
-class ProfileView(
-    django.contrib.auth.mixins.LoginRequiredMixin,
-    django.views.generic.FormView,
-):
-    template_name = "users/profile.html"
-    form_class = users.forms.ProfileForm
-    success_url = django.urls.reverse_lazy("users:profile")
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        instance = self.request.user
-        kwargs["initial"] = {
-            users.models.CustomUser.first_name.field.name:
-            instance.first_name,
-            users.models.CustomUser.last_name.field.name:
-            instance.last_name,
-            users.models.CustomUser.middle_name.field.name:
-            instance.middle_name,
-            users.models.CustomUser.birthday.field.name:
-            instance.birthday,
-            users.models.CustomUser.clinic.field.name:
-            instance.clinic,
-        }
-        return kwargs
-
-    def form_valid(self, form):
-        user = form.save()
-        user.birthday = form.cleaned_data["birthday"]
-        user.save()
-        return super().form_valid(form)
