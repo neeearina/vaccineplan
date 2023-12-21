@@ -3,6 +3,7 @@ import typing
 import django.db.models.query
 import django.http
 import django.shortcuts
+import django.urls
 import django.utils
 import django.views.generic
 
@@ -37,7 +38,7 @@ class RecordView(
     model = vaccines.models.Availability
     form_class = vaccine_calendar.forms.CalendarDateTimeForm
     template_name = "vaccine_calendar/availability.html"
-    success_url = "../"
+    success_url = django.urls.reverse_lazy("vaccine_calendar:calendar")
 
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -56,3 +57,9 @@ class RecordView(
             timetable=form.cleaned_data["date"],
         )
         return super().form_valid(form)
+
+
+class RecordDeleteView(django.views.generic.edit.DeleteView):
+    model = vaccine_calendar.models.Schedule
+    success_url = django.urls.reverse_lazy("vaccine_calendar:calendar")
+    template_name = "vaccine_calendar/record_delete.html"

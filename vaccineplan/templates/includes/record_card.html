@@ -1,0 +1,18 @@
+{% load tz %}
+
+<li class="d-flex justify-content-between align-items-center">
+	<div class="d-flex flex-row align-items-center"><i class="fa fa-check-circle checkicon"></i>
+		<div class="ml-2">
+			<h6 class="mb-0">{{ record.vaccine.name }}</h6>
+			<div class="d-flex flex-row mt-1 text-black-80 date-time">
+				<div><i class="fa fa-calendar-o"></i><span class="ml-2">{{ record.timetable|date }}</span></div>
+			</div>
+			<div class="ml-3"><span class="ml-2">{{ record.clinic.address }}</span></div>
+			<div class="ml-3"><span class="ml-2">{{ record.clinic.phone_number }}</span></div>
+						{% if record.timetable < now|utc %}
+			<span class="badge bg-danger">Прошедшее</span>
+			{% endif %}
+		</div>
+	</div>
+	<a href={% url "vaccine_calendar:record_delete" record.id %} class="btn btn-outline-danger .text-center">Сделано (удалить)</a>
+</li>
