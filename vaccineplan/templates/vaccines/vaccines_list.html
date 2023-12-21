@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}
-Вакцины от {{ illness.name }}
+Вакцины ({{ illness.name }})
 {% endblock %}
 
 {% block content %}
@@ -28,7 +28,7 @@
 				{% empty %}
 
 				<div class="alert alert-dark">
-					<h4 class="alert-heading">Упс! Похоже, подходящих бесплатных вакцин нет в вашей поликлинике.</h4>
+					<h4 class="alert-heading">Подходящих бесплатных вакцин нет в вашей поликлинике.</h4>
 					<p>Попробуйте заглянуть в другое время.</p>
 				</div>
 
@@ -47,8 +47,8 @@
 			
         {% empty %}
 				<div class="alert alert-dark">
-					<h4 class="alert-heading">Упс! Похоже, в вашем городе подходящих вакцин нет.</h4>
-					<p>Попробуйте заглянуть в другое время.
+					<h4 class="alert-heading">В вашем городе подходящих вакцин нет.</h4>
+					<p>Попробуйте заглянуть в другое время.</p>
 				</div>
 
 				{% endfor %}
@@ -67,4 +67,5 @@
   {% endif %}
 
 </div>
+
 {% endblock %}

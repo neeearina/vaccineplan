@@ -2,7 +2,7 @@
 
 
 <div class="card my-3 shadow p-3">
-  <h2 class="fs-5 fw-bold">{{ record.vaccine.name }} {% if record.timetable < now|utc %}<span class="badge bg-danger">Прошедшее</span>{% endif %}</h2>
+  <h2 class="fs-5 fw-bold border-bottom p-2">{{ record.vaccine.name }} {% if record.timetable < now|utc %}<span class="badge bg-danger">Прошедшее</span>{% endif %}</h2>
   <div class="row">
     <div class="col">
       <div class="row">
@@ -31,7 +31,7 @@
       </div>
     </div>
     <div class="d-flex col justify-content-end">
-      <a href={% url "vaccine_calendar:record_delete" record.id %} class="btn btn-outline-danger text-center">Сделано (удалить)</a>
+      <a href={% url "vaccine_calendar:record_delete" record.id %} class="btn btn-outline-danger text-center d-flex align-items-center justify-content-center">Удалить</a>
     </div>
   </div>
 </div>
