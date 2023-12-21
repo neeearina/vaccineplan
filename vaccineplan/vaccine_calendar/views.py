@@ -1,5 +1,3 @@
-import typing
-
 import django.db.models.query
 import django.http
 import django.shortcuts
