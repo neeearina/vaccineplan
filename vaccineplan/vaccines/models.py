@@ -5,8 +5,6 @@ import vaccines.managers
 
 
 class VaccineCategories(django.db.models.Model):
-    objects = vaccines.managers.VaccineCategoriesManager()
-
     name = django.db.models.CharField(
         max_length=100,
         help_text="название болезни",
@@ -33,8 +31,6 @@ class VaccineCategories(django.db.models.Model):
 
 
 class Vaccines(django.db.models.Model):
-    objects = vaccines.managers.VaccinesManager()
-
     name = django.db.models.CharField(
         max_length=150,
         help_text="название вакцины, производство",
@@ -43,7 +39,6 @@ class Vaccines(django.db.models.Model):
     category = django.db.models.ForeignKey(
         VaccineCategories,
         on_delete=django.db.models.CASCADE,
-        null=True,
         help_text="категория вакцины - название болезни,"
         " от которой она предназначена",
         verbose_name="категория",
@@ -60,20 +55,20 @@ class Vaccines(django.db.models.Model):
 class Availability(django.db.models.Model):
     objects = vaccines.managers.AvaliabilityManager()
 
-    vaccine = django.db.models.ForeignKey(
+    vaccines = django.db.models.ForeignKey(
         Vaccines,
+        help_text="название имеющейся вакцины в поликлинике",
         verbose_name="вакцина",
-        null=True,
         on_delete=django.db.models.CASCADE,
     )
 
     clinic = django.db.models.ForeignKey(
         clinics.models.Clinics,
+        help_text="поликлинка, в которой находится вакцина",
         verbose_name="клиника",
-        null=True,
         on_delete=django.db.models.CASCADE,
     )
 
     class Meta:
-        verbose_name = "Наличие"
+        verbose_name = "наличие"
         verbose_name_plural = "Наличия"

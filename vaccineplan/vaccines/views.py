@@ -26,9 +26,9 @@ class VaccinesView(django.views.generic.ListView):
         paid_vaccines = vaccines.models.Availability.objects.get_by_illness(
             self.kwargs["pk"],
         )
-        # if self.request.user.id:
-        #     paid_vaccines = paid_vaccines.filter(
-        #         clinic__city=self.request.user__city,
-        #     )
+        if self.request.user.id:
+            paid_vaccines = paid_vaccines.filter(
+                clinic__city=self.request.user.city,
+            )
         context["paid_vaccines"] = paid_vaccines.order_by("clinic__id")
         return context

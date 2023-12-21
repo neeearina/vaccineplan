@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static thumbnail widget_tweaks %}
+
+{% block title %}
+Администрирование клиники
+{% endblock %}
+
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+{% block content %}
+
+<div class="container d-flex justify-content-center">
+  <div>
+    {% thumbnail clinic.image "200x200" crop="center" as img %}
+    <img src="{{ img.url }}" class="img-thumbnail">
+    {% endthumbnail %}
+  </div>
+</div>
+{% include "includes/form.html" with submit_value="Отправить" %}
+
+<a class="btn btn-primary" href="{% url 'clinics:vaccines' pk=clinic.id %}">Добавить вакцины</a>
+
+{% endblock %}
+
+
+

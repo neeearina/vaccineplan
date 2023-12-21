@@ -176,3 +176,7 @@ CKEDITOR_CONFIGS = {
         ],
     },
 }
+
+EMAIL_ADDRESS = os.getenv("DJANGO_MAIL")
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = BASE_DIR / "send_mail"

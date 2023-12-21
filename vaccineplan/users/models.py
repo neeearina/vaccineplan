@@ -74,6 +74,7 @@ class CustomUser(django.contrib.auth.models.AbstractUser):
         verbose_name="город",
         help_text="город проживания пользователя",
         on_delete=django.db.models.deletion.CASCADE,
+        default=613,
     )
 
     def get_image_x300(self):
