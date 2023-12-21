@@ -46,10 +46,14 @@ class CustomUser(django.contrib.auth.models.AbstractUser):
         max_length=128,
     )
 
-    is_clinic_admin = django.db.models.BooleanField(
-        verbose_name="администратор клиники",
-        help_text="является ли этот пользователь администратором клиники",
-        default=False,
+    admins_clinic = django.db.models.ForeignKey(
+        to=clinics.models.Clinics,
+        verbose_name="администрируемая клиника",
+        help_text="клиника, которой администрирует пользователь",
+        blank=True,
+        null=True,
+        on_delete=django.db.models.deletion.CASCADE,
+        related_name="admins_clinic",
     )
 
     clinic = django.db.models.ForeignKey(

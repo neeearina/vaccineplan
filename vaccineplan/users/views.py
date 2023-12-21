@@ -13,6 +13,7 @@ import django.utils.timezone
 import django.views.generic
 import jwt
 
+import clinics.models
 import core.utils
 import users.forms
 import users.models
@@ -52,6 +53,17 @@ def profile(request):
     context = {
         "form": form,
     }
+
+    is_admin = clinics.models.Clinics.objects.filter(
+        admin_id=request.user,
+    ).exists()
+    if is_admin:
+        admins_clinic_id = clinics.models.Clinics.objects.get(
+            admin_id=request.user,
+        ).id
+        context["admins_clinic_id"] = admins_clinic_id
+    context["is_admin"] = is_admin
+
     return django.shortcuts.render(request, template, context)
 
 

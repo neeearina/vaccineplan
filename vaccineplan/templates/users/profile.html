@@ -91,10 +91,17 @@
           <a class="btn btn-outline-primary" href="{% url 'users:password_change' %}">Сменить пароль</a>
         </div>
       </div>
-      {% if user.is_active %}
+      {% if user.is_active and not is_admin %}
       <div class="my-3">
         <div class="d-grid gap-2">
-          <a class="btn btn-outline-success my-1" href="{% url 'clinics:registration' %}">Зарегистрировать клинику</a>
+          <a class="btn btn-outline-success my-1 disabled" href="{% url 'clinics:registration' %}">Зарегистрировать клинику</a>
+        </div>    
+      </div>
+      {% endif %}
+      {% if is_admin %}
+      <div class="my-3">
+        <div class="d-grid gap-2">
+          <a class="btn btn-warning my-1" href="{% url 'clinics:admin' pk=admins_clinic_id %}">Администрировать клинику</a>
         </div>    
       </div>
       {% endif %}

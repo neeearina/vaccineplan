@@ -29,6 +29,7 @@ class ClinicRegistrationFormView(
                 request=self.request,
                 message="Вы уже являетесь администратором клиники.",
             )
+            return django.shortcuts.redirect("users:profile")
         return super().get(request, *args, **kwargs)
 
     def form_valid(self, form):

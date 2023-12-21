@@ -2,6 +2,7 @@ import django.contrib
 
 import clinics.models
 import core.mails
+import users.models
 
 
 @django.contrib.admin.register(clinics.models.Clinics)
@@ -32,12 +33,19 @@ class ClinicsAdmin(django.contrib.admin.ModelAdmin):
                 to=form.cleaned_data.get("status"),
                 clinic=obj,
             )
-            print(form.cleaned_data)
+
             core.mails.send_mail_to_clinic_admin(
                 form.cleaned_data["status"],
                 form.cleaned_data["approved"],
                 obj.clinic_mail,
             )
+
+            user = users.models.CustomUser.objects.get(
+                pk=request.user.id,
+            )
+            user.admins_clinic = obj
+            user.save()
+
         super().save_model(request, obj, form, change)
 
 
