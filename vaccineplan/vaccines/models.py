@@ -1,12 +1,9 @@
 import django.db.models
 
 import clinics.models
-import vaccines.managers
 
 
 class VaccineCategories(django.db.models.Model):
-    objects = vaccines.managers.VaccineCategoriesManager()
-
     name = django.db.models.CharField(
         max_length=100,
         help_text="название болезни",
@@ -33,8 +30,6 @@ class VaccineCategories(django.db.models.Model):
 
 
 class Vaccines(django.db.models.Model):
-    objects = vaccines.managers.VaccinesManager()
-
     name = django.db.models.CharField(
         max_length=150,
         help_text="название вакцины, производство",

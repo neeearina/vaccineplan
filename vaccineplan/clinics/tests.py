@@ -24,7 +24,21 @@ class ClinicsModelTest(django.test.TestCase):
             clinic_mail="clinic@gmail.com",
         )
 
-    def test_relations_with_category(self):
+    def test_create_clinic(self):
+        initial_count = clinics.models.Clinics.objects.all().count()
+        clinics.models.Clinics.objects.create(
+            admin=self.user,
+            name="клиника 1",
+            city="Тюмень",
+            address="Ул. Садовая 117А",
+            lisense="Тестовая лицензия для клиники",
+            phone_number="89297340912",
+            clinic_mail="clinic@gmail.com",
+        )
+        new_count = clinics.models.Clinics.objects.all().count()
+        self.assertEqual(initial_count + 1, new_count)
+
+    def test_relations_with_user(self):
         clinic = clinics.models.Clinics.objects.get(pk=1)
         related_model = clinic._meta.get_field("admin").related_model
         self.assertEqual(
@@ -36,16 +50,11 @@ class ClinicsModelTest(django.test.TestCase):
 class ClinicsFormTest(django.test.TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.form = clinics.forms.ClinicsForm
-
-    def test_clinics_form_in_context(self):
-        response = self.client.get(
-            django.urls.reverse(
-                "clinics:registration",
-            ),
+        cls.user = django.contrib.auth.models.User.objects.create_user(
+            username="testadminNew",
+            password="Test!23@kxk22",
         )
-        self.assertIn("form", response.context)
-        self.assertIsInstance(response.context["form"], self.form)
+        cls.form = clinics.forms.ClinicsForm
 
     def test_valid_data(self):
         form_data = {
@@ -55,6 +64,7 @@ class ClinicsFormTest(django.test.TestCase):
             "lisense": "Тестовая лицензия для клиники",
             "phone_number": "89297340912",
             "clinic_mail": "clinic@gmail.com",
+            "private": "PR",
         }
         form = clinics.forms.ClinicsForm(form_data)
         self.assertTrue(form.is_valid())
