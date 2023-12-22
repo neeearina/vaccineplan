@@ -31,7 +31,4 @@ class VaccinesView(django.views.generic.ListView):
                 clinic__city=self.request.user.city,
             )
         context["paid_vaccines"] = paid_vaccines.order_by("clinic__id")
-        print("==============================================================")
-        for item in context["free_vaccines"]:
-            print(item.vaccines.name)
         return context
