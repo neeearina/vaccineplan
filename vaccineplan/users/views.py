@@ -120,6 +120,8 @@ class SignupFormView(django.views.generic.FormView):
             [user.email],
         )
 
+        django.contrib.auth.login(self.request, user)
+
         return django.shortcuts.redirect(
             django.urls.reverse("homepage:home"),
         )
