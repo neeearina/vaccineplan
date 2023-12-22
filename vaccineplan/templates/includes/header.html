@@ -20,6 +20,9 @@
         <li class="nav-item">
           <a href="{% url 'vaccine_calendar:calendar' %}" class="nav-link px-3 {% if view_name == 'vaccine_calendar:calendar' %}text-secondary disabled{% else %}text-white{% endif %}">Календарь прививок</a>
         </li>
+        <li class="nav-item">
+          <a href="{% url 'feedback:feedback' %}" class="nav-link px-3 {% if view_name == 'feedback:feedback' %}text-secondary disabled{% else %}text-white{% endif %}">Обратная связь</a>
+        </li>
         
         {% if user.is_superuser %}
 
