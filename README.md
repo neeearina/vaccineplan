@@ -97,6 +97,10 @@ python3 manage.py loaddata fixtures/cities.json
 ```
 
 ```
+python3 manage.py loaddata fixtures/illnesses.json
+```
+
+```
 python3 manage.py loaddata fixtures/vaccines.json
 ```
 
