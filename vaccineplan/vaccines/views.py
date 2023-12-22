@@ -30,5 +30,9 @@ class VaccinesView(django.views.generic.ListView):
             paid_vaccines = paid_vaccines.filter(
                 clinic__city=self.request.user.city,
             )
+            if self.request.user.clinic:
+                paid_vaccines = paid_vaccines.exclude(
+                    clinic=self.request.user.clinic,
+                )
         context["paid_vaccines"] = paid_vaccines.order_by("clinic__id")
         return context

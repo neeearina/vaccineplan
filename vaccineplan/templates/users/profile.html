@@ -91,11 +91,13 @@
           <a class="btn btn-outline-primary" href="{% url 'users:password_change' %}">Сменить пароль</a>
         </div>
       </div>
+      {% if not is_admin and user.is_active %}
       <div class="my-3">
         <div class="d-grid gap-2">
-          <a class="btn btn-outline-success my-1 {% if not user.is_active or user.admins_clinic %}disabled{% endif %}" href="{% url 'clinics:registration' %}">Зарегистрировать клинику</a>
+          <a class="btn btn-outline-success my-1" href="{% url 'clinics:registration' %}">Зарегистрировать клинику</a>
         </div>    
       </div>
+      {% endif %}
       {% if is_admin %}
       <div class="my-3">
         <div class="d-grid gap-2">

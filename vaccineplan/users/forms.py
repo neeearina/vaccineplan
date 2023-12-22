@@ -3,6 +3,7 @@ import django.contrib.auth.models
 import django.forms
 import django.forms.fields
 
+import clinics.models
 import users.models
 
 
@@ -51,6 +52,9 @@ class ProfileForm(django.forms.ModelForm):
         self.fields[
             users.models.CustomUser.image.field.name
         ].widget = django.forms.FileInput()
+        self.fields["clinic"] = django.forms.ModelChoiceField(
+            clinics.models.Clinics.objects.filter(approved=True),
+        )
 
     class Meta:
         model = users.models.CustomUser
