@@ -137,8 +137,6 @@ class StatusLog(django.db.models.Model):
     user = django.db.models.ForeignKey(
         to=django.conf.settings.AUTH_USER_MODEL,
         on_delete=django.db.models.CASCADE,
-        related_name="user",
-        related_query_name="user",
         help_text="пользователь, который изменил статус",
         verbose_name="пользователь",
     )

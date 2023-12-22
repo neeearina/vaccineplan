@@ -28,7 +28,6 @@ EMAIL_ADDRESS = os.getenv("DJANGO_MAIL", "NO-MAIL")
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = BASE_DIR / "send_mail"
 
-
 INSTALLED_APPS = [
     "homepage.apps.HomepageConfig",
     "users.apps.UsersConfig",
@@ -36,6 +35,7 @@ INSTALLED_APPS = [
     "core.apps.CoreConfig",
     "vaccines.apps.VaccinesConfig",
     "vaccine_calendar.apps.VaccineCalendarConfig",
+    "feedback.apps.FeedbackConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

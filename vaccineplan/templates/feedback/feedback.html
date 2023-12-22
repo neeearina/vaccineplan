@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+Обратная связь
+{% endblock %}
+
+{% block content %}
+
+<h1 class="fs-1 fw-bold text-center">Форма обратной связи</h1>
+
+{% if messages %}
+
+<div class="alert alert-dark my-1">
+
+  {% for message in messages %}
+
+  <p class="text-center">{{ message }}</p>
+
+  {% endfor %}
+
+</div>
+
+{% endif %}
+
+<div class="my-1">
+
+  {% include "includes/form.html" with submit_value="Отправить" %}
+
+</div>
+
+{% endblock %}
