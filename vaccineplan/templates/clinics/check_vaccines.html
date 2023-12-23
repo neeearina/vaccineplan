@@ -27,41 +27,39 @@
     </div>
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
-      <div class="accordion" id="accordionPanelsStayOpenExample">
-
-        {% for category in category_vaccines.items %}
-
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button" type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapse{{category.0.id}}"
-                    aria-expanded="true"
-                    aria-controls="panelsStayOpen-collapse{{category.0.id}}">
-              {{ category.0.name }}
-            </button>
-          </h2>
-          <div id="panelsStayOpen-collapse{{category.0.id}}"
-              class="accordion-collapse collapse">
-            <div class="accordion-body">
-              <ul class="list-group">
-
-                {% for vaccine in category.1 %}
-
-                <li class="list-group-item">
-                  <input type="checkbox" id="{{ vaccine.id }}"
-                        name="vaccines" value="{{ vaccine.id }}"
-                        {% if vaccine.id in already_checked %} checked {% endif %}>
-                  <label for="{{ vaccine.id }}">{{ vaccine.name }}</label>
-                </li>
-
-                {% endfor %}
-
-              </ul>
+      
+        {% for vaccine in vaccines %}
+        {% if forloop.first %}
+        <div class="accordion" id="accordionPanelsStayOpenExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#panelsStayOpen-collapse{{vaccine.category.id}}"
+                aria-expanded="true"
+                aria-controls="panelsStayOpen-collapse{{category.category.id}}">
+                {{ vaccine.category.name }}
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapse{{vaccine.category.id}}"
+                class="accordion-collapse collapse">
+              <div class="accordion-body">
+                <ul class="list-group">
+                  {% include "includes/accordion_checkboxes.html" %}
+        {% else %}
+        {% ifchanged  vaccine.category.id %}
+        {% include "includes/vaccine_accordion.html" %}
+        {% endifchanged %}
+        {% include "includes/accordion_checkboxes.html" %}
+        {% ifchanged  vaccine.category.id %}
+        {% endifchanged %}
+        {% endif %}
+        {% endfor %}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
-        {% endfor %}
       </div>
         <div class="my-2 d-grid gap-2">
           <button type="submit" class="btn btn-outline-primary">Сохранить</button>

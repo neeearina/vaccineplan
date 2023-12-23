@@ -70,7 +70,7 @@ class ClinicAdmin(django.views.generic.UpdateView):
 def clinic_vaccines(request, pk):
     template = "clinics/check_vaccines.html"
 
-    clinic_object = clinics.models.Clinics.objects.filter(pk=pk).first()
+    clinic_object = clinics.models.Clinics.objects.get(pk=pk)
     if request.method == "POST":
         vaccines.models.Availability.objects.filter(clinic=pk).delete()
         checked_vaccines = request.POST.getlist("vaccines")
@@ -91,23 +91,27 @@ def clinic_vaccines(request, pk):
             "clinics:vaccines",
             pk=pk,
         )
-    categories = vaccines.models.VaccineCategories.objects.all()
-    category_vaccines = {
-        category: vaccines.models.Vaccines.objects.filter(
-            category=category,
+    vaccines_context = (
+        vaccines.models.Vaccines.objects.all()
+        .select_related(
+            "category",
         )
-        for category in categories
-    }
+        .only(
+            "name",
+            "category",
+            "category__name",
+            "category__id",
+        )
+    )
     already_checked = [
-        i.get("vaccines_id")
-        for i in vaccines.models.Availability.objects.filter(
-            clinic_id=clinic_object.id,
+        el.vaccines.id
+        for el in vaccines.models.Availability.objects.get_already_checked(
+            clinic_object,
         )
-        .values("vaccines_id")
-        .all()
     ]
+
     context = {
-        "category_vaccines": category_vaccines,
+        "vaccines": vaccines_context,
         "already_checked": already_checked,
         "clinic_id": clinic_object.id,
     }

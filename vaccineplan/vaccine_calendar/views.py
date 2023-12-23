@@ -17,7 +17,9 @@ class VaccineCalendarView(django.views.generic.ListView):
     ordering = ["timetable"]
 
     def get_queryset(self):
-        return super().get_queryset().filter(user=self.request.user.id)
+        return vaccine_calendar.models.Schedule.objects.get_user_records(
+            self.request.user,
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

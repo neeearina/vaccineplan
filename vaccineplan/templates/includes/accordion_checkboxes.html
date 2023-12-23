@@ -1,0 +1,6 @@
+<li class="list-group-item">
+    <input type="checkbox" id="{{ vaccine.id }}"
+                name="vaccines" value="{{ vaccine.id }}"
+                {% if vaccine.id in already_checked %} checked {% endif %}>
+    <label for="{{ vaccine.id }}">{{ vaccine.name }}</label>
+</li>
