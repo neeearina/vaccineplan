@@ -1,6 +1,5 @@
-[![Pipeline Status](https://gitlab.crja72.ru/django_2023/projects/team5/badges/main/pipeline.svg)]
-
 # VaccinePlan
+![Uploading image.png…]()
 
 ## Платформа для планирования вакцинации. Это избавит вас от лишних звонков и очередей в регистратуру.
 
