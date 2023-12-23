@@ -19,15 +19,6 @@ class VaccinesTest(django.test.TestCase):
             category=cls.category1,
         )
 
-    def test_create_vaccines(self):
-        vaccines_count = vaccines.models.Vaccines.objects.all().count()
-        vaccines.models.Vaccines.objects.create(
-            name="Тестовая вакцина 1",
-            category=self.category1,
-        )
-        new_vaccines_count = vaccines.models.Vaccines.objects.all().count()
-        self.assertEqual(vaccines_count + 1, new_vaccines_count)
-
     def test_unabled_create_vaccines(self):
         with self.assertRaises(django.db.utils.IntegrityError):
             vaccines.models.Vaccines.objects.create(

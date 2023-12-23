@@ -9,17 +9,12 @@ class VaccineCategories(django.db.models.Model):
         max_length=100,
         help_text="название болезни",
         verbose_name="болезнь",
+        unique=True,
     )
     description = django.db.models.TextField(
         blank=True,
         help_text="описание болезни",
         verbose_name="описание",
-    )
-    num_of_vaccines = django.db.models.PositiveIntegerField(
-        default=0,
-        blank=True,
-        help_text="общее количество разработанных вакцин от этой болезни",
-        verbose_name="количество вакцин",
     )
 
     class Meta:
