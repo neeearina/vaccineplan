@@ -1,5 +1,9 @@
 # VaccinePlan
 
+![Главная страница](https://github.com/neeearina/vaccineplan/raw/main/pagescreen/mainpage.png)
+
+![Болезни на главной странице](https://github.com/neeearina/vaccineplan/raw/main/pagescreen/illnesses.png)
+
 ## Платформа для планирования вакцинации. Это избавит вас от лишних звонков и очередей в регистратуру.
 
 ## На сайте вы можете:
