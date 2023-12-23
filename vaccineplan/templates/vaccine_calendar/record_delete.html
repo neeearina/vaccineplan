@@ -1,6 +1,38 @@
-<form method="post">
-    {% csrf_token %}
-    <p>Вы уверены что хотите удалить "{{ object }}"?</p>
-    {{ form }}
-    <input type="submit" value="Confirm">
-</form>
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+Удаление записи
+{% endblock %}
+
+{% block content %}
+
+<h1 class="fs-1 fw-bold text-center">Удаление записи</h1>
+
+{% if messages %}
+
+<div class="alert alert-dark my-1">
+
+  {% for message in messages %}
+
+  <p class="text-center">{{ message }}</p>
+
+  {% endfor %}
+
+</div>
+
+{% endif %}
+
+<div class="my-1">
+	<div class="d-flex justify-content-center">
+		<div class="w-50">
+			<p class="text-muted fs-6 text-center">Подтвердите удаление: <span class="badge bg-secondary">{{ object }}</span></p>
+		</div>
+	</div>
+
+  {% include "includes/form.html" with submit_value="Удалить" %}
+
+</div>
+
+{% endblock %}

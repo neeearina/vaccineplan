@@ -1,16 +1,33 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Создание запии в календаре</title>
-</head>
-<body>
-    <h3>Создание запии в календаре</h3>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Submit">
-    </form>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+Создание записи
+{% endblock %}
+
+{% block content %}
+
+<h1 class="fs-1 fw-bold text-center">Создание записи в календаре</h1>
+
+{% if messages %}
+
+<div class="alert alert-dark my-1">
+
+  {% for message in messages %}
+
+  <p class="text-center">{{ message }}</p>
+
+  {% endfor %}
+
+</div>
+
+{% endif %}
+
+<div class="my-1">
+
+  {% include "includes/form.html" with submit_value="Создать" %}
+
+</div>
+
+{% endblock %}
