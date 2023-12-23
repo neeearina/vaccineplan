@@ -1,14 +1,6 @@
 [
   {
     "model": "vaccines.vaccines",
-    "pk": 1,
-    "fields": {
-      "name": "БЦЖ (BCG – Bacillus Calmett and Geren) – вакцина против туберкулёза",
-      "category": 1
-    }
-  },
-  {
-    "model": "vaccines.vaccines",
     "pk": 2,
     "fields": {
       "name": "Регевак В, Биннофарм (Медико-технологический холдинг «МТХ»), Россия;",
