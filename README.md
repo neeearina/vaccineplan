@@ -17,7 +17,7 @@
 ### Склонируйте репозиторий с помощью git команды:
 
 ```
-git clone https://gitlab.crja72.ru/django_2023/projects/team5.git
+git clone https://github.com/neeearina/vaccineplan.git
 ```
 
 ### Создайте виртуальное окружение и активируйте его:
