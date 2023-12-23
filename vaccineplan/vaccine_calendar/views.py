@@ -1,3 +1,4 @@
+import django.contrib.auth.mixins
 import django.db.models.query
 import django.http
 import django.shortcuts
@@ -10,7 +11,10 @@ import vaccine_calendar.models
 import vaccines.models
 
 
-class VaccineCalendarView(django.views.generic.ListView):
+class VaccineCalendarView(
+    django.contrib.auth.mixins.LoginRequiredMixin,
+    django.views.generic.ListView,
+):
     model = vaccine_calendar.models.Schedule
     template_name = "vaccine_calendar/list.html"
 
@@ -26,6 +30,7 @@ class VaccineCalendarView(django.views.generic.ListView):
 
 
 class RecordView(
+    django.contrib.auth.mixins.LoginRequiredMixin,
     django.views.generic.edit.FormView,
     django.views.generic.DetailView,
 ):
@@ -53,7 +58,10 @@ class RecordView(
         return super().form_valid(form)
 
 
-class RecordDeleteView(django.views.generic.edit.DeleteView):
+class RecordDeleteView(
+    django.contrib.auth.mixins.LoginRequiredMixin,
+    django.views.generic.edit.DeleteView,
+):
     model = vaccine_calendar.models.Schedule
     success_url = django.urls.reverse_lazy("vaccine_calendar:calendar")
     template_name = "vaccine_calendar/record_delete.html"

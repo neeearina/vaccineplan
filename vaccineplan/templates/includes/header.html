@@ -17,9 +17,11 @@
         <li class="nav-item">
           <a href="{% url 'homepage:home' %}" class="nav-link px-3 {% if view_name == 'homepage:home' %}text-secondary disabled{% else %}text-white{% endif %}">Главная страница</a>
         </li>
+        {% if user.is_authenticated %}
         <li class="nav-item">
           <a href="{% url 'vaccine_calendar:calendar' %}" class="nav-link px-3 {% if view_name == 'vaccine_calendar:calendar' %}text-secondary disabled{% else %}text-white{% endif %}">Календарь прививок</a>
         </li>
+        {% endif %}
         <li class="nav-item">
           <a href="{% url 'feedback:feedback' %}" class="nav-link px-3 {% if view_name == 'feedback:feedback' %}text-secondary disabled{% else %}text-white{% endif %}">Обратная связь</a>
         </li>

@@ -30,3 +30,13 @@ class Schedule(django.db.models.Model):
     timetable = django.db.models.DateTimeField(
         verbose_name="расписание",
     )
+
+    def __str__(self):
+        return (
+            f"запись на {self.timetable.strftime('%d.%m.%Y')}"
+            f" ({self.vaccine.name})"
+        )
+
+    class Meta:
+        verbose_name = "объект расписания"
+        verbose_name_plural = "объекты расписания"

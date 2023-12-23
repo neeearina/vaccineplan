@@ -69,6 +69,7 @@ class Clinics(django.db.models.Model):
                 message="Слишком короткий текст.",
             ),
         ],
+        unique=True,
     )
     phone_number = phonenumber_field.modelfields.PhoneNumberField(
         region="RU",
