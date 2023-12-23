@@ -16,8 +16,8 @@
   {% empty %}
 
   <div class="alert alert-dark">
-    <h1 class="alert-heading fs-4">Внимание</h1>
-    <p>Никаких прививок еще не запланировано. Вот такие пироги</p>
+    <h1 class="alert-heading fs-4">Список запланированных вакцинаций пуст</h1>
+    <p>Здесь будут появляться ваши записи. Можете ознакомитсья со списком болезней <a class="alert-link" href="{% url 'homepage:home' %}">здесь</a></p>
   </div>
 
   {% endfor %}

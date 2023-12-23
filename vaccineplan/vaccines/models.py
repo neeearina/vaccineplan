@@ -71,4 +71,4 @@ class Availability(django.db.models.Model):
 
     class Meta:
         verbose_name = "наличие"
-        verbose_name_plural = "Наличия"
+        verbose_name_plural = "наличия"

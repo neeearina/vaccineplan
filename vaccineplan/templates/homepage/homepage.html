@@ -72,7 +72,7 @@
 
   <div class="row p-2 pe-lg-0 pt-lg-3 align-items-center rounded-4 border shadow-lg my-3">
     <div class="d-grid gap-2">
-      <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#illnesses_collapse" role="button" aria-controls="illnesses_collapse">
+      <a class="btn btn-outline-primary" data-bs-toggle="collapse" id="collapse-btn" href="#illnesses_collapse" role="button" aria-controls="illnesses_collapse">
         Краткая справка по болезням
       </a>
     </div>
@@ -101,7 +101,12 @@
     </div>
   </div>
   
-
+  <div class="row p-2 pe-lg-0 pt-lg-3 align-items-center rounded-4 border shadow-lg my-3">
+    <h2 class="lead pb-2 border-bottom fs-2">Остались вопросы или хотите поделиться впечатлениями?</h2>
+    <div class="d-grid gap-2 my-2">
+      <a class="btn btn-outline-success" href="{% url 'feedback:feedback' %}">Обратная связь</a>
+    </div>
+  </div>
   
 </div>
 {% endblock %}

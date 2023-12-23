@@ -20,7 +20,8 @@ class VaccinesView(django.views.generic.ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(VaccinesView, self).get_context_data(*args, **kwargs)
-        context["illness"] = vaccines.models.VaccineCategories.objects.get(
+        context["illness"] = django.shortcuts.get_object_or_404(
+            vaccines.models.VaccineCategories,
             id=self.kwargs["pk"],
         )
         paid_vaccines = vaccines.models.Availability.objects.get_by_illness(
@@ -31,7 +32,4 @@ class VaccinesView(django.views.generic.ListView):
                 clinic__city=self.request.user.city,
             )
         context["paid_vaccines"] = paid_vaccines.order_by("clinic__id")
-        print("==============================================================")
-        for item in context["free_vaccines"]:
-            print(item.vaccines.name)
         return context
