@@ -55,6 +55,7 @@ class ProfileForm(django.forms.ModelForm):
         self.fields["clinic"] = django.forms.ModelChoiceField(
             clinics.models.Clinics.objects.filter(approved=True),
         )
+        self.fields["clinic"].required = False
 
     class Meta:
         model = users.models.CustomUser
