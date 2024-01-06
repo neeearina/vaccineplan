@@ -63,7 +63,7 @@ pip3 install -r requirements/test.txt
 Значение переменной DJANGO_DEBUG в прод режиме False, в дев режиме True. От
 этого значения зависит отображение данных на страницах.
 
-# Все дальнейшие команды выполняются из директории team5/vaccineplan
+# Все дальнейшие команды выполняются из директории vaccineplan/vaccineplan
 
 ### Секретный ключ
 
@@ -81,8 +81,6 @@ from django.core.management.utils import get_random_secret_key
 ```
 get_random_secret_key()
 ```
-
-## Последующие команды выполняются из директории проекта `vaccineplan`
 
 ### Выполните миграции для создания таблиц в БД:
 
